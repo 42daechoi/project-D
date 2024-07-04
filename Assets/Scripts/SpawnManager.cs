@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
 
     private int monsterIndex = 0;
     private int spawnCount = 0;
-    private const int maxSpawnsPerMonster = 10;
+    private const int maxSpawnsPerMonster = 60;
 
     // Start is called before the first frame update
     void Start()
