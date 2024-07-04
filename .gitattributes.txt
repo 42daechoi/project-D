@@ -1,0 +1,1 @@
+*.cg text eol=lf
