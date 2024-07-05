@@ -142,10 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46682c3f65f1a5344a89c3cf11f6a25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
-  maxHp: 100
-  def: 2
-  speed: 10
+  _speed: 10
   waypoints: []
 --- !u!95 &6904405987579341684
 Animator:
