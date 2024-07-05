@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/GamzaScene.unity
+- path: Assets/Scenes/DaechoiScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

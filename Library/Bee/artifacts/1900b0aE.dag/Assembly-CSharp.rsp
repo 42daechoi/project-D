@@ -361,11 +361,15 @@
 "Assets/Kawaii Slimes/Scripts/AI/EnemyAi.cs"
 "Assets/Kawaii Slimes/Scripts/AI/Face.cs"
 "Assets/Kawaii Slimes/Scripts/GameManager.cs"
+"Assets/Scripts/ButtonBinder.cs"
+"Assets/Scripts/GachaManager.cs"
 "Assets/Scripts/Monster.cs"
 "Assets/Scripts/PlayerInformation.cs"
 "Assets/Scripts/SpawnManager.cs"
 "Assets/Scripts/UnitAbilites.cs"
 "Assets/Scripts/UnitController.cs"
+"Assets/Scripts/UnitSpawnManager.cs"
+"Assets/Scripts/VerifyActivation.cs"
 -langversion:9.0
 /deterministic
 /optimize+
