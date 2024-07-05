@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class UnitAbilites : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float probability;
+    private bool isActive;
 }
