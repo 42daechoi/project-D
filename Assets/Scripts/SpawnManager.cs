@@ -27,12 +27,13 @@ public class SpawnManager : MonoBehaviour
             GameObject selectedPrefab = monsterPrefabs[monsterIndex];
             GameObject monster = Instantiate(selectedPrefab, spawnPoint.position, Quaternion.Euler(0, 180, 0));
 
-            // 몬스터 웨이포인트 할당
-            Monster monsterMovement = monster.GetComponent<Monster>();
-            if (monsterMovement != null)
+            // 몬스터 값 세팅
+            Monster monsterSet = monster.GetComponent<Monster>();
+            if (monsterSet != null)
             {
-                monsterMovement.waypoints = waypoints;  // 웨이포인트 할당
+                monsterSet.waypoints = waypoints;  // 웨이포인트 할당
             }
+            
 
             
             spawnCount++;
