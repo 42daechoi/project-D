@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GachaManager : MonoBehaviour
@@ -8,23 +6,43 @@ public class GachaManager : MonoBehaviour
     private UnitAbilites[] unitAbilitesScript;
     public GameObject[] disableUnitGrounds;
 
-    // Start is called before the first frame update
     void Start()
     {
+        InitializeUnitAbilities();
+    }
+
+    void InitializeUnitAbilities()
+    {
+        if (units == null || units.Length == 0 || disableUnitGrounds == null || disableUnitGrounds.Length == 0)
+        {
+            Debug.LogError("GachaManager: units or disableUnitGrounds arrays are null or empty.");
+            return;
+        }
+
         unitAbilitesScript = new UnitAbilites[units.Length];
         for (int i = 0; i < units.Length; i++)
         {
             unitAbilitesScript[i] = units[i].GetComponent<UnitAbilites>();
-            if (unitAbilitesScript[i] != null)
+            if (unitAbilitesScript[i] == null)
             {
-                Debug.Log("unitAbilitesScipt" + i + "error");
+                Debug.LogWarning("GachaManager: unitAbilitesScript " + i + " is null.");
             }
         }
     }
 
-    //확률형 유닛 뽑기
-    void GachaUnits()
+    public GameObject GachaUnits()
     {
+        // unitAbilitesScript 배열이 null이거나 길이가 0인 경우 초기화 시도
+        if (unitAbilitesScript == null || unitAbilitesScript.Length == 0)
+        {
+            InitializeUnitAbilities();
+            if (unitAbilitesScript == null || unitAbilitesScript.Length == 0)
+            {
+                Debug.LogError("GachaManager: unitAbilitesScript is still null or empty in GachaUnits.");
+                return null;
+            }
+        }
+
         float randomValue = Random.value;
         float sumProbabilites = 0.0f;
 
@@ -33,9 +51,10 @@ public class GachaManager : MonoBehaviour
             sumProbabilites += unitAbilitesScript[i].probability;
             if (randomValue <= sumProbabilites)
             {
-                //Instantiate(units[i], );
-                return ;
+                return units[i];
             }
         }
+
+        return units[units.Length - 1];
     }
 }

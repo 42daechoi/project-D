@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 7475729015143361099}
   - component: {fileID: -4425281741373544650}
   m_Layer: 5
-  m_Name: SpawnUnit
+  m_Name: SpawnUnitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,3 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0162c55397af894db9c32216e1a03d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitObject: {fileID: 0}
