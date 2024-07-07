@@ -801,7 +801,7 @@ GameObject:
   - component: {fileID: 291142488}
   - component: {fileID: 291142487}
   m_Layer: 0
-  m_Name: Spawn Manager
+  m_Name: WaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -832,6 +832,7 @@ MonoBehaviour:
   - {fileID: 1274062590}
   - {fileID: 1311178530}
   spawnInterval: 0.5
+  timeLimit: 30
 --- !u!4 &291142488
 Transform:
   m_ObjectHideFlags: 0
