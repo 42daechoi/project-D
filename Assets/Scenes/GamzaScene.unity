@@ -3771,8 +3771,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1547b64ca3fb2e9498703b5e99e35dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourcePath: Enemy_Resources
-  numberOfWaves: 9
+  monsterResourcePath: Enemy_Resources
+  bossResourcePath: Boss_Resources
+  numberOfWaves: 10
   waves: []
   spawnManager: {fileID: 291142487}
 --- !u!4 &1954312366
@@ -4067,7 +4068,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2027254090}
-  - component: {fileID: 2027254089}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -4075,22 +4075,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2027254089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027254088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98533d561c73d614881ab37179fecded, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gold: 0
-  level: 0
-  goldText: {fileID: 2009461895}
-  levelText: {fileID: 675390018}
 --- !u!4 &2027254090
 Transform:
   m_ObjectHideFlags: 0
