@@ -58,7 +58,7 @@ public class Monster : MonoBehaviour
             Dead();
         }
     }
-    
+
     private void Dead()
     {
         Destroy(gameObject);
