@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    public string resourcePath = "Enemy_Resources";
-    public int numberOfWaves = 9;         // 웨이브 수를 지정할 수 있는 변수
+    public string monsterResourcePath = "Enemy_Resources";
+    public string bossResourcePath = "Boss_Resources";
+    
+    public int numberOfWaves = 10;         // 웨이브 수를 지정할 수 있는 변수
     public Wave[] waves;                  // 모든 웨이브의 배열
     public SpawnManager spawnManager;     // 스폰 매니저 참조
     private int currentWaveIndex = 0;     // 현재 웨이브 인덱스
     private GameObject[] enemyPrefabs;
+    private GameObject[] bossPrefab;
     private int waveInfo = 0;
 
     void Start()
@@ -22,15 +25,31 @@ public class WaveManager : MonoBehaviour
     void LoadEnemies()
     {
         // Resources 폴더에서 모든 프리팹 로드
-        enemyPrefabs = Resources.LoadAll<GameObject>(resourcePath);
+        enemyPrefabs = Resources.LoadAll<GameObject>(monsterResourcePath);
+        bossPrefab = Resources.LoadAll<GameObject>(bossResourcePath);
 
         // 각 웨이브에 프리팹 할당
+        int waveIndex = 0;
         for (int i = 0; i < waves.Length; i++)
         {
-            waves[i] = new Wave
+            if ((i + 1) % 10 == 0)
             {
-                enemies = new GameObject[] { enemyPrefabs[i % enemyPrefabs.Length] },
-            };
+                waves[waveIndex] = new Wave
+                {
+                    enemies = new GameObject[] { bossPrefab[waveIndex % bossPrefab.Length] },
+                    isBossWave = true
+                };
+            }
+            else
+            {
+                waves[waveIndex] = new Wave
+                {
+                    enemies = new GameObject[] { enemyPrefabs[i % enemyPrefabs.Length] },
+                    isBossWave = false
+                };
+            }
+
+            waveIndex++;
         }
     }
 
