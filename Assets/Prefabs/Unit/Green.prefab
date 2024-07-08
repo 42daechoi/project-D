@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1886271701775938381}
   - component: {fileID: 6810215784699999208}
   - component: {fileID: 7851591560266766254}
+  - component: {fileID: 5616286904554181162}
   m_Layer: 0
   m_Name: Green
   m_TagString: Untagged
@@ -119,3 +120,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 0.2
+--- !u!114 &5616286904554181162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699220545061988009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c9804a2bab32a4ba229586f73745ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropZone: {fileID: 8062051612958349063, guid: 6c5dfb4085562a94e8ca4771a53a27d1, type: 3}

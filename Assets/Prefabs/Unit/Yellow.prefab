@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 670216181554400691}
   - component: {fileID: 2506791897616539679}
   - component: {fileID: 6637753378067155189}
+  - component: {fileID: 7107868855695633502}
   m_Layer: 0
   m_Name: Yellow
   m_TagString: Untagged
@@ -119,3 +120,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 0.2
+--- !u!114 &7107868855695633502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306066660345193880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c9804a2bab32a4ba229586f73745ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeUnitGround: {fileID: 6728515647232560695, guid: 6c5dfb4085562a94e8ca4771a53a27d1, type: 3}
+  dropZone: {fileID: 8062051612958349063, guid: 6c5dfb4085562a94e8ca4771a53a27d1, type: 3}
