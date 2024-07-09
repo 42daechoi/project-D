@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DragDropUnit : MonoBehaviour
 {
-    private BoxCollider dropZone;
+    private BoxCollider activeUnitGroundBoxCollider;
+    private BoxCollider saleUnitGroundBoxCollider;
     private Camera mainCamera;
     private UnitAbilites unitAbilites;
+    
 
     private Vector3 offset;
     private float yPosition;
@@ -18,7 +20,8 @@ public class DragDropUnit : MonoBehaviour
         yPosition = transform.position.y;
         initPosition = transform.position;
 
-        dropZone = GameObject.Find("ActiveUnitGround").GetComponent<BoxCollider>();
+        activeUnitGroundBoxCollider = GameObject.Find("ActiveUnitGround").GetComponent<BoxCollider>();
+        saleUnitGroundBoxCollider = GameObject.Find("SaleUnitGround").GetComponent<BoxCollider>();
         unitAbilites = GetComponent<UnitAbilites>();
     }
     private void OnMouseDown()
@@ -38,13 +41,19 @@ public class DragDropUnit : MonoBehaviour
     private void OnMouseUp()
     {
         // 드롭 시에 오브젝트 원래 y위치로 복귀
-        Bounds dropZoneBounds = dropZone.bounds;
-        if (dropZoneBounds.Contains(transform.position))
+        Bounds activeUnitBounds = activeUnitGroundBoxCollider.bounds;
+        Bounds saleUnitBounds = saleUnitGroundBoxCollider.bounds;
+        if (activeUnitBounds.Contains(transform.position))
         {
             Vector3 newPosition = transform.position;
             newPosition.y = yPosition;
             transform.position = newPosition;
             unitAbilites.SetActivation(true);
+        }
+        else if (saleUnitBounds.Contains(transform.position))
+        {
+            Destroy(gameObject);
+            // Gold 추가 로직 구현
         }
         else
         {
