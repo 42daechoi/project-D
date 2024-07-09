@@ -17,8 +17,6 @@ public class DragSelection : MonoBehaviour
         selectionBoxImage.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-
     public void UpdateDragSelection()
     {
         if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > 400 && Input.mousePosition.x < 1500)
@@ -33,7 +31,7 @@ public class DragSelection : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            //SelectUnits();
+            UnitSelector.Instance.SelectUnits(selectionBoxRect);
             selectionBoxImage.gameObject.SetActive(false);
         }
     }

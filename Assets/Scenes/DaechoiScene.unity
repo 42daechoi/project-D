@@ -949,8 +949,8 @@ Transform:
   m_GameObject: {fileID: 1147791104}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.3, y: 0, z: -17.74}
-  m_LocalScale: {x: 14.306069, y: 1, z: 4}
+  m_LocalPosition: {x: 29.3, y: 0, z: -19.4}
+  m_LocalScale: {x: 15.018512, y: 1, z: 6.266}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1630464798}
@@ -2060,6 +2060,7 @@ GameObject:
   - component: {fileID: 1928849171}
   - component: {fileID: 1928849170}
   - component: {fileID: 1928849172}
+  - component: {fileID: 1928849173}
   m_Layer: 0
   m_Name: DragManager
   m_TagString: Untagged
@@ -2107,6 +2108,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionBoxImage: {fileID: 1908615282}
+--- !u!114 &1928849173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928849169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d69a38c1c5d9647a5a283408018c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1932428197
 GameObject:
   m_ObjectHideFlags: 0

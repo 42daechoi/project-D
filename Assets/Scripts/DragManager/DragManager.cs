@@ -14,9 +14,6 @@ public class DragManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.mousePosition.x > 400 && Input.mousePosition.x < 1500)
-        {
-            dragSelection.UpdateDragSelection();
-        }
+        dragSelection.UpdateDragSelection();
     }
 }
