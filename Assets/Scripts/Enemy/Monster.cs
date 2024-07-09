@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    
     private float hp;
     [SerializeField]
     private float maxHp;
@@ -15,9 +14,9 @@ public class Monster : MonoBehaviour
     public float MaxHp { get => maxHp; set => maxHp = value; }
     public float Def { get => def; set => def = value; }
     public float Speed { get => speed; set => speed = value; }
-    
+
     public Transform[] waypoints;
-    
+
     private int waypointIndex = 0;
 
     void Start()
@@ -41,12 +40,12 @@ public class Monster : MonoBehaviour
             Rotate();
         }
     }
+
     void Rotate()
     {
-        
         transform.rotation *= Quaternion.Euler(0, -90, 0);
     }
-    
+
     // 캐릭터 공격에 관련된 함수에 불러오면됨
     public void TakeDamage(float damage)
     {
@@ -63,6 +62,4 @@ public class Monster : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
 }

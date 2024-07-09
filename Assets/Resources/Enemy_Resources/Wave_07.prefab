@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6904405987579341684}
   m_Layer: 0
   m_Name: Wave_07
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

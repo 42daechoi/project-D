@@ -14,6 +14,7 @@ public class WaveManager : MonoBehaviour
     private GameObject[] enemyPrefabs;
     private GameObject[] bossPrefab;
     private int waveInfo = 0;
+    private List<Monster> spawnedMonsters = new List<Monster>();
 
     void Start()
     {
@@ -58,7 +59,7 @@ public class WaveManager : MonoBehaviour
         while (currentWaveIndex < waves.Length)
         {
             Wave currentWave = waves[currentWaveIndex];
-            yield return StartCoroutine(spawnManager.SpawnWave(currentWave));
+            yield return StartCoroutine(spawnManager.SpawnWave(currentWave, spawnedMonsters, currentWaveIndex));
             currentWaveIndex++;
             waveInfo = currentWaveIndex;
             Debug.Log(waveInfo); // 이건 그냥 테스트용 즉 웨이브정보를 이런식으로 할까해서 주석처리해놈
