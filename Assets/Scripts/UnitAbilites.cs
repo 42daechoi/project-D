@@ -12,7 +12,7 @@ public class UnitAbilites : MonoBehaviour
         isActive = flag;
     }
 
-    public bool GetActivation(bool flag)
+    public bool GetActivation()
     {
         return isActive;
     }
