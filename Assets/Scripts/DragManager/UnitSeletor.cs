@@ -23,13 +23,16 @@ public class UnitSelector : MonoBehaviour
         Vector2 min = selectionBoxRect.anchoredPosition - (selectionBoxRect.sizeDelta / 2);
         Vector2 max = selectionBoxRect.anchoredPosition + (selectionBoxRect.sizeDelta / 2);
 
-        foreach (GameObject unit in GameObject.FindGameObjectsWithTag("ActiveUnit"))
+        foreach (GameObject unit in GameObject.FindGameObjectsWithTag("Unit"))
         {
-            Vector2 unitPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, unit.transform.position);
-
-            if (unitPosition.x >= min.x && unitPosition.x <= max.x && unitPosition.y >= min.y && unitPosition.y <= max.y)
+            if (unit.GetComponent<UnitAbilites>().GetActivation())
             {
-                Debug.Log("Unit Selected: " + unit.name);
+                Vector2 unitPosition = RectTransformUtility.WorldToScreenPoint(Camera.main, unit.transform.position);
+
+                if (unitPosition.x >= min.x && unitPosition.x <= max.x && unitPosition.y >= min.y && unitPosition.y <= max.y)
+                {
+                    Debug.Log("Unit Selected: " + unit.name);
+                }
             }
         }
     }
