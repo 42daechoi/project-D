@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 0.1
+  placedInactiveUnitGround: {fileID: 0}
 --- !u!114 &2708678100981528802
 MonoBehaviour:
   m_ObjectHideFlags: 0

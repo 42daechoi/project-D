@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
+    public List<GameObject> unitInstanceList;
 	private GameObject[] SelectedUnits;
 
 	void Awake()
@@ -18,7 +19,39 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        unitInstanceList = new List<GameObject> ();
     }
+
+    public void AddUnitInstance(GameObject unitInstance)
+    {
+        unitInstanceList.Add(unitInstance);
+    }
+
+    public void RemoveUnitInstance(GameObject unitInstance)
+    {
+        if (unitInstanceList.Contains(unitInstance))
+        {
+            unitInstanceList.Remove(unitInstance);
+            Destroy(unitInstance);
+        }
+    }
+
+    public List<GameObject> GetActiveUnitList()
+    {
+        List<GameObject> list = new List<GameObject>();
+
+        foreach (GameObject unitInstance in unitInstanceList)
+        {
+            UnitAbilites unitAbilites = unitInstance.GetComponent<UnitAbilites>();
+
+            if (!unitAbilites.GetActivation())
+            {
+                list.Add(unitInstance);
+            }
+        }
+        return list;
+    }
+
     public GameObject[] GetSelectedUnits()
     {
         return SelectedUnits;

@@ -5,15 +5,29 @@ using UnityEngine;
 public class UnitAbilites : MonoBehaviour
 {
     public float probability;
-    private bool isActive;
+    public GameObject placedInactiveUnitGround;
 
-    public void SetActivation(bool flag)
+    private void Awake()
     {
-        isActive = flag;
+        placedInactiveUnitGround = null;
+    }
+    public void SetActivation(GameObject inactiveUnitGround)
+    {
+        if (placedInactiveUnitGround != null)
+        {
+            VerifyActivation placedIugVa = placedInactiveUnitGround.GetComponent<VerifyActivation>();
+            placedIugVa.SetActivation(false);
+        }
+        if (inactiveUnitGround != null)
+        {
+            VerifyActivation iugVa = inactiveUnitGround.GetComponent<VerifyActivation>();
+            iugVa.SetActivation(true);
+        }
+        placedInactiveUnitGround = inactiveUnitGround;
     }
 
-    public bool GetActivation()
+    public GameObject GetActivation()
     {
-        return isActive;
+        return placedInactiveUnitGround;
     }
 }
