@@ -4,24 +4,11 @@ using UnityEngine;
 
 public class UnitSelector : MonoBehaviour
 {
-    public static UnitSelector Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     public void SelectUnits(RectTransform selectionBoxRect)
     {
         Vector2 min = selectionBoxRect.anchoredPosition - (selectionBoxRect.sizeDelta / 2);
         Vector2 max = selectionBoxRect.anchoredPosition + (selectionBoxRect.sizeDelta / 2);
+        List<GameObject> selectedUnitList = new List<GameObject>();
 
         foreach (GameObject unit in GameObject.FindGameObjectsWithTag("Unit"))
         {
@@ -31,9 +18,10 @@ public class UnitSelector : MonoBehaviour
 
                 if (unitPosition.x >= min.x && unitPosition.x <= max.x && unitPosition.y >= min.y && unitPosition.y <= max.y)
                 {
-                    Debug.Log("Unit Selected: " + unit.name);
+                    selectedUnitList.Add(unit);
                 }
             }
         }
+        GameManager.Instance.InitSelectedUnit(selectedUnitList);
     }
 }
