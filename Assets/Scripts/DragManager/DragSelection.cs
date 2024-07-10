@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DragSelection : MonoBehaviour
 {
     public Image selectionBoxImage;
+    private UnitSelector unitSelector;
     private RectTransform selectionBoxRect;
 
     private Vector2 startPosition;
@@ -14,6 +15,7 @@ public class DragSelection : MonoBehaviour
     void Start()
     {
         selectionBoxRect = selectionBoxImage.GetComponent<RectTransform>();
+        unitSelector = GetComponent<UnitSelector>();
         selectionBoxImage.gameObject.SetActive(false);
     }
 
@@ -31,7 +33,7 @@ public class DragSelection : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            UnitSelector.Instance.SelectUnits(selectionBoxRect);
+            unitSelector.SelectUnits(selectionBoxRect);
             selectionBoxImage.gameObject.SetActive(false);
         }
     }
