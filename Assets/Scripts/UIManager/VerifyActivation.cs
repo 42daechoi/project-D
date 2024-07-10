@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VerifyActivation : MonoBehaviour
 {
-    private bool isActive = false;
+    public bool isActive = false;
 
     public void SetActivation(bool flag)
     {

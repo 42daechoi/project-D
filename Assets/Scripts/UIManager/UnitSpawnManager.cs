@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,8 +29,12 @@ public class UnitSpawnManager : MonoBehaviour
             {
                 Transform inactiveUnitGroundTransfrom = inactiveUnitGround[i].transform;
                 Vector3 placePosition = inactiveUnitGroundTransfrom.position + new Vector3(0, 1, 0);
-                Instantiate(buttonBinder.unitObject, placePosition, inactiveUnitGroundTransfrom.rotation);
-                verifyActivation.SetActivation(true);
+                GameObject unit = buttonBinder.unitObject;
+                GameObject unitInstance = Instantiate(unit, placePosition, inactiveUnitGroundTransfrom.rotation);
+
+                // 프리팹으로 생성된 인스턴스에 대해서 SetActivation 수행
+                GameManager.Instance.AddUnitInstance(unitInstance);
+                unitInstance.GetComponent<UnitAbilites>().SetActivation(inactiveUnitGround[i]);
                 clickedButton.gameObject.SetActive(false);
                 return ;
             } 

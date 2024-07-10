@@ -49,11 +49,12 @@ public class DragDropUnit : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.y = yPosition;
             transform.position = newPosition;
-            unitAbilites.SetActivation(true);
+            unitAbilites.SetActivation(null);
         }
         else if (saleUnitBounds.Contains(transform.position))
         {
-            Destroy(gameObject);
+            unitAbilites.SetActivation(null);
+            GameManager.Instance.RemoveUnitInstance(gameObject);
             // Gold 추가 로직 구현
         }
         else
