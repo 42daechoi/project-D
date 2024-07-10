@@ -19,7 +19,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    
+    public GameObject[] GetSelectedUnits()
+    {
+        return SelectedUnits;
+    }
+
     public void UpdateSelectedUnit(List<GameObject> selectedUnitsList)
     {
         if (selectedUnitsList == null || selectedUnitsList.Count == 0)
@@ -34,4 +38,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(SelectedUnits[i]);
         }
     }
+
+
 }

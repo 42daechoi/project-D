@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Reroll : MonoBehaviour
+public class RerollEvent : MonoBehaviour
 {
     public Button rerollButton;
     public Button[] SpawnUnitButtons;

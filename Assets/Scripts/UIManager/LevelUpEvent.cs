@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LevelUp : MonoBehaviour
+public class LevelUpEvent : MonoBehaviour
 {
     public Button levelUpButton;
     private PlayerInformation playerInformationScript;
