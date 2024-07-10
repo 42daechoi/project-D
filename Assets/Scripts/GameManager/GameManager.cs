@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void InitSelectedUnit(List<GameObject> selectedUnitsList)
+    public void UpdateSelectedUnit(List<GameObject> selectedUnitsList)
     {
         if (selectedUnitsList == null || selectedUnitsList.Count == 0)
         {

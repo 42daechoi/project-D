@@ -22,6 +22,6 @@ public class UnitSelector : MonoBehaviour
                 }
             }
         }
-        GameManager.Instance.InitSelectedUnit(selectedUnitList);
+        GameManager.Instance.UpdateSelectedUnit(selectedUnitList);
     }
 }
