@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class VerifyActivation : MonoBehaviour
 {
-    public bool isActive = false;
+    private bool isActive = false;
 
-    public void setActivation(bool flag)
+    public void SetActivation(bool flag)
     {
         isActive = flag;
+    }
+
+    public bool GetActivation()
+    {
+        return isActive;
     }
 }
