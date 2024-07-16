@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,21 +21,20 @@ public class InactiveUnitEvent : MonoBehaviour
 	{
 		GameObject[] selectedUnits = GameManager.Instance.GetSelectedUnits();
 		GameObject[] inactiveUnitGrounds = GameObject.FindGameObjectsWithTag("InactiveUnitGround");
-
-		if (selectedUnits == null) return ;
+        GameObject[] sortedObjects = inactiveUnitGrounds.OrderBy(go => go.name).ToArray();
 
 		foreach (GameObject unit in selectedUnits)
 		{
             UnitAbilites ua = unit.GetComponent<UnitAbilites>();
-            for(int i = inactiveUnitGrounds.Length - 1; i >= 0; i--)
+            foreach (GameObject so in sortedObjects)
 			{
-				VerifyActivation verifyActivation = inactiveUnitGrounds[i].GetComponent<VerifyActivation>();
+				VerifyActivation verifyActivation = so.GetComponent<VerifyActivation>();
 				if (!verifyActivation.GetActivation())
 				{
-                    Transform iugTransform = inactiveUnitGrounds[i].transform;
+                    Transform iugTransform = so.transform;
 					Vector3 placePosition = iugTransform.position + new Vector3(0, 1, 0);
 
-					ua.SetActivation(inactiveUnitGrounds[i]);
+					ua.SetActivation(so);
                     unit.transform.position = placePosition;
 					break ;
 				}
