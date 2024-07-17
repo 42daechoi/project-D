@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
     public List<GameObject> unitInstanceList;
-	private GameObject[] SelectedUnits;
-
+    public GameObject[] SelectedUnits;
+    
 	void Awake()
 	{
         if (Instance == null)
@@ -19,7 +20,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        unitInstanceList = new List<GameObject> ();
+        unitInstanceList = new List<GameObject> (); ;
+    }
+
+    private void Start()
+    {
+        
     }
 
     public void AddUnitInstance(GameObject unitInstance)
@@ -71,6 +77,5 @@ public class GameManager : MonoBehaviour
             Debug.Log(SelectedUnits[i]);
         }
     }
-
-
+    
 }
