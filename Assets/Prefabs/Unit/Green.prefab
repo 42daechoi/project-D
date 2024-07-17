@@ -120,7 +120,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 0.2
+  damage: 0
   placedInactiveUnitGround: {fileID: 0}
+  synergyComponents:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &5616286904554181162
 MonoBehaviour:
   m_ObjectHideFlags: 0
