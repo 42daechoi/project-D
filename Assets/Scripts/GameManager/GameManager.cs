@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,8 +8,10 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
     public List<GameObject> unitInstanceList;
-	private GameObject[] SelectedUnits;
-
+    public GameObject[] SelectedUnits;
+    public UnitControlManager unitControlManager;
+    public event Action<Vector3> OnMove;
+    
 	void Awake()
 	{
         if (Instance == null)
@@ -19,7 +22,30 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        unitInstanceList = new List<GameObject> ();
+        unitInstanceList = new List<GameObject> (); ;
+        
+        if (unitControlManager != null)
+        {
+            unitControlManager.Initialize();
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Debug.Log("이벤트발동! (게임매니저)");
+                Debug.Log(hit.point);
+                OnMove?.Invoke(hit.point);
+                //if (unitControlManager != null)
+                //{
+                    //unitControlManager.gameObject.SetActive(true); // 우클릭 시 활성화
+                //}
+            }
+        }
     }
 
     public void AddUnitInstance(GameObject unitInstance)
@@ -71,6 +97,5 @@ public class GameManager : MonoBehaviour
             Debug.Log(SelectedUnits[i]);
         }
     }
-
-
+    
 }
