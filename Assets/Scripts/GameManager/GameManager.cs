@@ -8,9 +8,10 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager Instance { get; private set; }
     public List<GameObject> unitInstanceList;
-    public GameObject[] SelectedUnits;
+    public GameObject[] selectedUnits;
     public UnitControlManager unitControlManager;
     public event Action<Vector3> OnMove;
+    public event Action OnHold;
     
 	void Awake()
 	{
@@ -40,11 +41,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log("이벤트발동! (게임매니저)");
                 Debug.Log(hit.point);
                 OnMove?.Invoke(hit.point);
-                //if (unitControlManager != null)
-                //{
-                    //unitControlManager.gameObject.SetActive(true); // 우클릭 시 활성화
-                //}
             }
+        }
+        if (Input.GetKeyDown(KeyCode.H)) // 홀드 명령
+        {
+            OnHold?.Invoke();
         }
     }
 
@@ -80,21 +81,21 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] GetSelectedUnits()
     {
-        return SelectedUnits;
+        return selectedUnits;
     }
 
     public void UpdateSelectedUnit(List<GameObject> selectedUnitsList)
     {
         if (selectedUnitsList == null || selectedUnitsList.Count == 0)
         {
-            SelectedUnits = null;
+            selectedUnits = null;
             return;
         }
-        SelectedUnits = selectedUnitsList.ToArray();
+        selectedUnits = selectedUnitsList.ToArray();
         
-        for (int i = 0; i < SelectedUnits.Length; i++)
+        for (int i = 0; i < selectedUnits.Length; i++)
         {
-            Debug.Log(SelectedUnits[i]);
+            Debug.Log(selectedUnits[i]);
         }
     }
     
