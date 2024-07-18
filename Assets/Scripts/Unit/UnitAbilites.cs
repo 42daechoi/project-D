@@ -65,7 +65,17 @@ public class UnitAbilites : MonoBehaviour
         if (navAgent != null && navAgent.enabled)
         {
             Debug.Log("잘들어왔다 유닛어빌리티!");
+            navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
+        }
+    }
+
+    public void HoldPosition()
+    {
+        if (navAgent != null && navAgent.enabled)
+        {
+            Debug.Log("잘들어왔다 유닛어빌리티!");
+            navAgent.isStopped = true;
         }
     }
 }
