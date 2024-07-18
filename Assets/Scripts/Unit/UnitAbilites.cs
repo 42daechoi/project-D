@@ -7,8 +7,10 @@ using UnityEngine.AI;
 public class UnitAbilites : MonoBehaviour
 {
     public float probability;
+    public float damage;
     public GameObject placedInactiveUnitGround;
     public NavMeshAgent navAgent;
+    public List<ScriptableObject> synergiesList;
 
     private void Awake()
     {
@@ -24,12 +26,10 @@ public class UnitAbilites : MonoBehaviour
             navAgent.enabled = false; // NavMeshAgent 비활성화
         }
     }
-
     private void Start()
     {
         
     }
-
     public void SetActivation(GameObject inactiveUnitGround)
     {
         if (placedInactiveUnitGround != null)
