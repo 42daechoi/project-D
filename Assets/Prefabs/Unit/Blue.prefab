@@ -123,6 +123,7 @@ MonoBehaviour:
   probability: 0.2
   damage: 0
   placedInactiveUnitGround: {fileID: 0}
+  navAgent: {fileID: 0}
   synergiesList:
   - {fileID: 0}
 --- !u!114 &3737917292435338123

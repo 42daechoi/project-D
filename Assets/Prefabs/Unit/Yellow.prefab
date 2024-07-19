@@ -121,7 +121,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   probability: 0.2
+  damage: 0
   placedInactiveUnitGround: {fileID: 0}
+  navAgent: {fileID: 0}
+  synergiesList: []
 --- !u!114 &7107868855695633502
 MonoBehaviour:
   m_ObjectHideFlags: 0

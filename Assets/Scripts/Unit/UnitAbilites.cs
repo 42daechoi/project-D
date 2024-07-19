@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using projectD;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,10 +28,7 @@ public class UnitAbilites : MonoBehaviour
             navAgent.enabled = false; // NavMeshAgent 비활성화
         }
     }
-    private void Start()
-    {
-        
-    }
+
     public void SetActivation(GameObject inactiveUnitGround)
     {
         if (placedInactiveUnitGround != null)
