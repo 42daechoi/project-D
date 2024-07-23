@@ -11,6 +11,7 @@ public class UnitAbilites : MonoBehaviour
     public float probability;
     public float damage;
     public GameObject placedInactiveUnitGround;
+    public GameObject unitMarker;
     public NavMeshAgent navAgent;
     public List<ScriptableObject> synergiesList;
 
@@ -77,4 +78,14 @@ public class UnitAbilites : MonoBehaviour
             navAgent.isStopped = true;
         }
     }
+
+    public void SelectUnitMarker()
+    {
+        if (unitMarker != null)
+        {
+            unitMarker.SetActive(true);
+            Debug.Log("유닛어빌리티 셋엑티브 트루");
+        }
+    }
+    
 }

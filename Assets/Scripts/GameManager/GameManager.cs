@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject unitInstance in unitInstanceList)
         {
             UnitAbilites unitAbilites = unitInstance.GetComponent<UnitAbilites>();
-
+            
             if (!unitAbilites.GetActivation())
             {
                 list.Add(unitInstance);
@@ -95,7 +95,12 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < selectedUnits.Length; i++)
         {
-            Debug.Log(selectedUnits[i]);
+            UnitAbilites unitAbilites = selectedUnits[i].GetComponent<UnitAbilites>();
+            if (unitAbilites != null)
+            {
+                Debug.Log(selectedUnits[i]);
+                unitAbilites.SelectUnitMarker();
+            }
         }
     }
     
