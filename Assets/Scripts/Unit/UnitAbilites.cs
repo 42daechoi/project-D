@@ -10,6 +10,7 @@ public class UnitAbilites : MonoBehaviour
 {
     public float probability;
     public float damage;
+    public float attackSpeed;
     public GameObject placedInactiveUnitGround;
     public NavMeshAgent navAgent;
     public List<ScriptableObject> synergiesList;
@@ -52,11 +53,6 @@ public class UnitAbilites : MonoBehaviour
     public GameObject GetActivation()
     {
         return placedInactiveUnitGround;
-    }
-
-    void Update()
-    {
-        
     }
 
     public void MoveTo(Vector3 targetPosition)
