@@ -35,6 +35,7 @@ public class DragSelection : MonoBehaviour
         {
             unitSelector.SelectUnits(selectionBoxRect);
             selectionBoxImage.gameObject.SetActive(false);
+            Debug.LogError("ee");
         }
     }
 

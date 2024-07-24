@@ -6,15 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "IncreaseAttackSpeedSynergy", menuName = "Custom/IncreaseAttackSpeedSynergy", order = 2)]
 public class IncreaseAttackSpeedSynergy : Synergy
 {
-    private float IncreaseSpeedRate = 0.1f;
+    private float increaseSpeedRate = 0.1f;
 
     public override void ApplySynergyToUnit(UnitAbilites ua)
     {
-        ua.attackSpeed += IncreaseSpeedRate;
+        ua.attackSpeed += increaseSpeedRate;
     }
 
     public override void RemoveSynergyToUnit(UnitAbilites ua)
     {
-        ua.attackSpeed -= IncreaseSpeedRate;
+        ua.attackSpeed -= increaseSpeedRate;
     }
 }
