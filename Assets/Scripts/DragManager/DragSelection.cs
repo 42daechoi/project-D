@@ -11,6 +11,7 @@ public class DragSelection : MonoBehaviour
 
     private Vector2 startPosition;
     private Vector2 endPosition;
+    private bool isInAllowArea;
 
     void Start()
     {
@@ -21,21 +22,28 @@ public class DragSelection : MonoBehaviour
 
     public void UpdateDragSelection()
     {
-        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > 400 && Input.mousePosition.x < 1500)
+        if (Input.GetMouseButtonDown(0))
         {
-            startPosition = Input.mousePosition;
-            selectionBoxImage.gameObject.SetActive(true);
+            isInAllowArea = Input.mousePosition.x > 400 && Input.mousePosition.x < 1500;
+            if (isInAllowArea)
+            {
+                startPosition = Input.mousePosition;
+                selectionBoxImage.gameObject.SetActive(true);
+            }
         }
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && isInAllowArea)
         {
             endPosition = Input.mousePosition;
             UpdateSelectionBox();
         }
         if (Input.GetMouseButtonUp(0))
         {
-            unitSelector.SelectUnits(selectionBoxRect);
-            selectionBoxImage.gameObject.SetActive(false);
-            Debug.LogError("ee");
+            if (isInAllowArea) 
+            {
+                unitSelector.SelectUnits(selectionBoxRect);
+                selectionBoxImage.gameObject.SetActive(false);
+            }
+            isInAllowArea = false;
         }
     }
 
