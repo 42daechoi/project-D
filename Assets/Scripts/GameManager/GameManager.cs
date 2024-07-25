@@ -86,6 +86,17 @@ public class GameManager : MonoBehaviour
 
     public void UpdateSelectedUnit(List<GameObject> selectedUnitsList)
     {
+        if (selectedUnits != null)
+        {
+            foreach (GameObject unit in selectedUnits)
+            {
+                UnitAbilites unitAbilities = unit.GetComponent<UnitAbilites>();
+                if (unitAbilities != null)
+                {
+                    unitAbilities.DeSelectUnitMarker();
+                }
+            }
+        }
         if (selectedUnitsList == null || selectedUnitsList.Count == 0)
         {
             selectedUnits = null;

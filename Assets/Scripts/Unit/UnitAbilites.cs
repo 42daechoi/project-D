@@ -42,7 +42,7 @@ public class UnitAbilites : MonoBehaviour
         if (inactiveUnitGround != null)
         {
             VerifyActivation iugVa = inactiveUnitGround.GetComponent<VerifyActivation>();
-            iugVa.SetActivation(true); 
+            iugVa.SetActivation(true);
             navAgent.enabled = false;
             // 새로운 유닛의 NavMeshAgent 활성화
         }
@@ -57,7 +57,7 @@ public class UnitAbilites : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     public void MoveTo(Vector3 targetPosition)
@@ -87,5 +87,14 @@ public class UnitAbilites : MonoBehaviour
             Debug.Log("유닛어빌리티 셋엑티브 트루");
         }
     }
-    
+
+    public void DeSelectUnitMarker()
+    {
+        if (unitMarker != null)
+        {
+            unitMarker.SetActive(false);
+            Debug.Log("유닛어빌리티 셋엑티브 폴스");
+        }
+    }
+
 }
