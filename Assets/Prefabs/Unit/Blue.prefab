@@ -123,11 +123,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   probability: 0.2
   damage: 0
+  attackSpeed: 0
   placedInactiveUnitGround: {fileID: 0}
   unitMarker: {fileID: 4631249064514287007}
   navAgent: {fileID: 0}
   synergiesList:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 746f12772e18b634385482f89df23d9c, type: 2}
 --- !u!114 &3737917292435338123
 MonoBehaviour:
   m_ObjectHideFlags: 0

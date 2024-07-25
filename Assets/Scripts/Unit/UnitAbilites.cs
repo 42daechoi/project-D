@@ -10,6 +10,7 @@ public class UnitAbilites : MonoBehaviour
 {
     public float probability;
     public float damage;
+    public float attackSpeed;
     public GameObject placedInactiveUnitGround;
     public GameObject unitMarker;
     public NavMeshAgent navAgent;
@@ -54,12 +55,6 @@ public class UnitAbilites : MonoBehaviour
     {
         return placedInactiveUnitGround;
     }
-
-    void Update()
-    {
-
-    }
-
     public void MoveTo(Vector3 targetPosition)
     {
         if (navAgent != null && navAgent.enabled)
