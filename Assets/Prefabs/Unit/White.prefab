@@ -121,12 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc2d0ada155ef24884c133f95e55890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  probability: 0.1
   damage: 0
-  placedInactiveUnitGround: {fileID: 0}
-  unitMarker: {fileID: 346767274065093884}
-  navAgent: {fileID: 0}
+  attackSpeed: 1
+  attackRange: 5
+  probability: 0.1
   synergiesList: []
+  unitMarker: {fileID: 346767274065093884}
+  attackRangeIndicator: {fileID: 0}
 --- !u!114 &2708678100981528802
 MonoBehaviour:
   m_ObjectHideFlags: 0
