@@ -99,7 +99,8 @@ public class UnitAbilites : MonoBehaviour
 
     public void AttackTo(Vector3 targetPosition)
     {
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        Vector3 vectorToTarget = targetPosition - transform.position;
+        float distanceToTarget = vectorToTarget.magnitude;
 
         // 목표 지점이 공격 사거리 내에 있는지 확인
         if (distanceToTarget <= attackRange)
@@ -107,30 +108,12 @@ public class UnitAbilites : MonoBehaviour
             Debug.Log("공격최대사거리 접근완료");
             HoldPosition();
         }
-        else
+        else if (distanceToTarget > attackRange)
         {
-            StartCoroutine(MoveAndCheckDistance(targetPosition));
+            MoveTo(vectorToTarget);
         }
     }
-
-    private IEnumerator MoveAndCheckDistance(Vector3 targetPosition)
-    {
-        MoveTo(targetPosition); // 여기에서 먼저 MoveTo를 떄려버림
-
-        while (true)
-        {
-            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-
-            if (distanceToTarget <= attackRange)
-            {
-                Debug.Log("목표 지점에 도달하여 멈춤");
-                HoldPosition();
-                yield break; // 코루틴 종료
-            }
-
-            yield return new WaitForSeconds(0.1f); // 짧은 시간 간격으로 반복 체크
-        }
-    }
+    
     
 
     public void SelectUnitMarker()
