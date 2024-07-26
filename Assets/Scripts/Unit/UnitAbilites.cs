@@ -27,7 +27,7 @@ public class UnitAbilites : MonoBehaviour
     
     // 유닛 선택 마커
     public GameObject unitMarker;
-    // public LineRenderer attackRangeIndicator;
+    public GameObject rangeMarker;
     
     private GameObject placedInactiveUnitGround;
     private NavMeshAgent navAgent;
@@ -100,6 +100,7 @@ public class UnitAbilites : MonoBehaviour
 
     public void Attack()
     {
+        rangeMarker.SetActive(true);
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
