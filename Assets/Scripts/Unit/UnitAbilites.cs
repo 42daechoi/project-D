@@ -1,20 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using projectD;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using Vector3 = UnityEngine.Vector3;
 
 public class UnitAbilites : MonoBehaviour
 {
+    // 유닛 전투 관련 속성
+    [Header("UnitCombatData")] 
+    public float damage = 10f;
+    public float attackSpeed = 1f;
+    public float attackRange = 10f;
+    private float lastAttackTime;
+    
+    // 유닛 가챠 확률 속성
+    [Header("GachaPercentage")]
     public float probability;
-    public float damage;
-    public float attackSpeed;
-    public GameObject placedInactiveUnitGround;
-    public GameObject unitMarker;
-    public NavMeshAgent navAgent;
+    
+    // 유닛 시너지목록
+    [Header("UnitSynergies")]
     public List<ScriptableObject> synergiesList;
+    
+    // 유닛 선택 마커
+    public GameObject unitMarker;
+    // public LineRenderer attackRangeIndicator;
+    
+    private GameObject placedInactiveUnitGround;
+    private NavMeshAgent navAgent;
+    
 
     private void Awake()
     {
@@ -29,6 +46,13 @@ public class UnitAbilites : MonoBehaviour
         {
             navAgent.enabled = false; // NavMeshAgent 비활성화
         }
+        
+        if (unitMarker != null)
+        {
+            unitMarker.SetActive(false);
+        }
+        
+        
     }
 
     public void SetActivation(GameObject inactiveUnitGround)
@@ -59,7 +83,7 @@ public class UnitAbilites : MonoBehaviour
     {
         if (navAgent != null && navAgent.enabled)
         {
-            Debug.Log("잘들어왔다 유닛어빌리티!");
+            Debug.Log("잘들어왔다 무브 유닛어빌리티!");
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
         }
@@ -69,11 +93,33 @@ public class UnitAbilites : MonoBehaviour
     {
         if (navAgent != null && navAgent.enabled)
         {
-            Debug.Log("잘들어왔다 유닛어빌리티!");
+            Debug.Log("잘들어왔다 홀드 유닛어빌리티!");
             navAgent.isStopped = true;
         }
     }
 
+    public void Attack()
+    {
+        if (Time.time >= lastAttackTime + 1f / attackSpeed)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Monster"))
+                {
+                    Monster monster = hitCollider.GetComponent<Monster>();
+                    if (monster != null)
+                    {
+                        monster.TakeDamage(damage);
+                        Debug.Log("몬스터를 공격했습니다.");
+                        lastAttackTime = Time.time;
+                        return; // 한 번의 공격에서 하나의 몬스터만 공격
+                    }
+                }
+            }
+        }
+    }
+    
     public void SelectUnitMarker()
     {
         if (unitMarker != null)

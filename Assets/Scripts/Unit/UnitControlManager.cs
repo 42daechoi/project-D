@@ -9,6 +9,7 @@ public class UnitControlManager : MonoBehaviour
         Debug.Log("이벤트 구독 시작! 유닛컨트롤러");
         GameManager.Instance.OnMove += Move;
         GameManager.Instance.OnHold += Hold;
+        GameManager.Instance.OnAttack += Attack;
         Debug.Log("이벤트 구독 완료! 유닛컨트롤러");
     }
 
@@ -52,4 +53,18 @@ public class UnitControlManager : MonoBehaviour
             }
         }   
     }
+
+    public void Attack()
+    {
+        foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
+        {
+            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            if (unitAbilties != null)
+            {
+                unitAbilties.Attack();
+                Debug.Log("유닛어택!(유닛컨트롤매니저)");
+            }
+        }
+    }
+    
 }

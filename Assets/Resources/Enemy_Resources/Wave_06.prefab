@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 3467851699220123360}
   - component: {fileID: -9022770983814070400}
   - component: {fileID: -2195379218718703686}
+  - component: {fileID: -1128281755097324512}
   m_Layer: 0
   m_Name: Wave_06
   m_TagString: Monster
@@ -176,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46682c3f65f1a5344a89c3cf11f6a25b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 0
   maxHp: 100
   def: 0
   speed: 10
@@ -201,6 +203,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &-1128281755097324512
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281683080859636826}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6226777814166338176
 GameObject:
   m_ObjectHideFlags: 0
