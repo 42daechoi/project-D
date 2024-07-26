@@ -54,14 +54,14 @@ public class UnitControlManager : MonoBehaviour
         }   
     }
 
-    public void Attack(Vector3 targetPosition)
+    public void Attack()
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
             UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
             if (unitAbilties != null)
             {
-                unitAbilties.AttackTo(targetPosition);
+                unitAbilties.Attack();
                 Debug.Log("유닛어택!(유닛컨트롤매니저)");
             }
         }

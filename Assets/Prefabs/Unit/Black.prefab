@@ -121,14 +121,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc2d0ada155ef24884c133f95e55890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 10
   attackSpeed: 1
   attackRange: 5
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: a086aba7f3af7e848b3fe5cdf4e23baf, type: 2}
   unitMarker: {fileID: 2059607211992392273}
-  attackRangeIndicator: {fileID: 0}
 --- !u!114 &2408621432597303041
 MonoBehaviour:
   m_ObjectHideFlags: 0

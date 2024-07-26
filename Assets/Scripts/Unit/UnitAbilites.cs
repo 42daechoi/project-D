@@ -15,6 +15,7 @@ public class UnitAbilites : MonoBehaviour
     public float damage = 10f;
     public float attackSpeed = 1f;
     public float attackRange = 10f;
+    private float lastAttackTime;
     
     // 유닛 가챠 확률 속성
     [Header("GachaPercentage")]
@@ -26,7 +27,7 @@ public class UnitAbilites : MonoBehaviour
     
     // 유닛 선택 마커
     public GameObject unitMarker;
-    public LineRenderer attackRangeIndicator;
+    // public LineRenderer attackRangeIndicator;
     
     private GameObject placedInactiveUnitGround;
     private NavMeshAgent navAgent;
@@ -97,25 +98,28 @@ public class UnitAbilites : MonoBehaviour
         }
     }
 
-    public void AttackTo(Vector3 targetPosition)
+    public void Attack()
     {
-        Vector3 vectorToTarget = targetPosition - transform.position;
-        float distanceToTarget = vectorToTarget.magnitude;
-
-        // 목표 지점이 공격 사거리 내에 있는지 확인
-        if (distanceToTarget <= attackRange)
+        if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
-            Debug.Log("공격최대사거리 접근완료");
-            HoldPosition();
-        }
-        else if (distanceToTarget > attackRange)
-        {
-            MoveTo(vectorToTarget);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Monster"))
+                {
+                    Monster monster = hitCollider.GetComponent<Monster>();
+                    if (monster != null)
+                    {
+                        monster.TakeDamage(damage);
+                        Debug.Log("몬스터를 공격했습니다.");
+                        lastAttackTime = Time.time;
+                        return; // 한 번의 공격에서 하나의 몬스터만 공격
+                    }
+                }
+            }
         }
     }
     
-    
-
     public void SelectUnitMarker()
     {
         if (unitMarker != null)

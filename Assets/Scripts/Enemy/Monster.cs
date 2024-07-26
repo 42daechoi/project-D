@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    [SerializeField]
     private float hp;
     [SerializeField]
     private float maxHp;
