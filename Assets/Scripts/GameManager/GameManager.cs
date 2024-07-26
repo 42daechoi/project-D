@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] selectedUnits;
     
     public UnitControlManager unitControlManager;
-    // private bool isAttack = false;
+    private bool isAttack = false;
     
     // 유닛컨트롤 관련 이벤트
     public event Action<Vector3> OnMove;
@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            // isAttack = true;
+            isAttack = true;
             Debug.Log("isAttack = true");
             OnAttack?.Invoke();
         }
