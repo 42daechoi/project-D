@@ -51,10 +51,8 @@ public class UnitAbilites : MonoBehaviour
         {
             unitMarker.SetActive(false);
         }
-        
-        
     }
-
+    
     public void SetActivation(GameObject inactiveUnitGround)
     {
         if (placedInactiveUnitGround != null)
@@ -79,8 +77,14 @@ public class UnitAbilites : MonoBehaviour
     {
         return placedInactiveUnitGround;
     }
+    
     public void MoveTo(Vector3 targetPosition)
     {
+        if (rangeMarker != false)
+        {
+            rangeMarker.SetActive(false);
+        }
+        
         if (navAgent != null && navAgent.enabled)
         {
             Debug.Log("잘들어왔다 무브 유닛어빌리티!");
@@ -100,7 +104,7 @@ public class UnitAbilites : MonoBehaviour
 
     public void Attack()
     {
-        rangeMarker.SetActive(true);
+        rangeMarker.SetActive(false);
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
@@ -139,4 +143,12 @@ public class UnitAbilites : MonoBehaviour
         }
     }
 
+    public void AttackRangeMarkerOn()
+    {
+        if (rangeMarker != null)
+        {
+            rangeMarker.SetActive(true);
+        }
+    }
+    
 }

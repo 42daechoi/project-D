@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     // 유닛컨트롤 관련 이벤트
     public event Action<Vector3> OnMove;
     public event Action OnHold;
-    public event Action OnAttack;
+    public event Action OnIsAttack;
+    public event Action<Vector3> OnAttack;
     
     
 	void Awake()
@@ -63,20 +64,20 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             isAttack = true;
+            OnIsAttack?.Invoke();
             Debug.Log("isAttack = true");
-            OnAttack?.Invoke();
         }
 
-        // if (Input.GetMouseButtonDown(0) && isAttack != false)
-        // {
-        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     if (Physics.Raycast(ray, out RaycastHit hit))
-        //     {
-        //         Debug.Log("공격 이벤트 발동! (게임매니저)");
-        //         OnAttack?.Invoke(hit.point);
-        //     }
-        //     isAttack = false;
-        // }
+        if (Input.GetMouseButtonDown(0) && isAttack != false)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Debug.Log("공격 이벤트 발동! (게임매니저)");
+                OnAttack?.Invoke(hit.point);
+            }
+            isAttack = false;
+        }
         
     }
 
