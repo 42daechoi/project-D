@@ -114,7 +114,7 @@ public class UnitAbilites : MonoBehaviour
                         monster.TakeDamage(damage);
                         Debug.Log("몬스터를 공격했습니다.");
                         lastAttackTime = Time.time;
-                        return; // 한 번의 공격에서 하나의 몬스터만 공격
+                        return;
                     }
                 }
             }
