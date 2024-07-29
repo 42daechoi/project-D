@@ -115,15 +115,21 @@ public class UnitAbilites : MonoBehaviour
                     Monster monster = hitCollider.GetComponent<Monster>();
                     if (monster != null)
                     {
-                        monster.TakeDamage(damage);
-                        Debug.Log("몬스터를 공격했습니다.");
-                        lastAttackTime = Time.time;
-                        return;
+                        // 몬스터와의 실제 거리를 계산합니다.
+                        float distanceToMonster = Vector3.Distance(transform.position, monster.transform.position);
+                        if (distanceToMonster <= attackRange)
+                        {
+                            monster.TakeDamage(damage);
+                            Debug.Log("몬스터를 공격했습니다. 거리: " + distanceToMonster);
+                            lastAttackTime = Time.time;
+                            return;
+                        }
                     }
                 }
             }
         }
     }
+
     
     public void SelectUnitMarker()
     {
@@ -147,8 +153,8 @@ public class UnitAbilites : MonoBehaviour
     {
         if (rangeMarker != null)
         {
+            rangeMarker.transform.localScale = new Vector3(attackRange * 2, attackRange * 2, attackRange * 2);
             rangeMarker.SetActive(true);
         }
     }
-    
 }
