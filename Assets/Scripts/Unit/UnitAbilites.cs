@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Vector3 = UnityEngine.Vector3;
 
-public class UnitAbilites : MonoBehaviour
+public class UnitAbilities : MonoBehaviour
 {
     // 유닛 전투 관련 속성
     [Header("UnitCombatData")] 
@@ -24,6 +24,7 @@ public class UnitAbilites : MonoBehaviour
     // 유닛 시너지목록
     [Header("UnitSynergies")]
     public List<ScriptableObject> synergiesList;
+    public int unitId;
     
     // 유닛 선택 마커
     public GameObject unitMarker;

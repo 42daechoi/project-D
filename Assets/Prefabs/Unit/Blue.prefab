@@ -127,7 +127,9 @@ MonoBehaviour:
   probability: 0.2
   synergiesList:
   - {fileID: 11400000, guid: 746f12772e18b634385482f89df23d9c, type: 2}
+  unitId: 2
   unitMarker: {fileID: 4631249064514287007}
+  rangeMarker: {fileID: 0}
 --- !u!114 &3737917292435338123
 MonoBehaviour:
   m_ObjectHideFlags: 0

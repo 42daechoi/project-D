@@ -34,7 +34,7 @@ public class UnitSpawnManager : MonoBehaviour
 
                 // 프리팹으로 생성된 인스턴스에 대해서 SetActivation 수행
                 GameManager.Instance.AddUnitInstance(unitInstance);
-                unitInstance.GetComponent<UnitAbilites>().SetActivation(inactiveUnitGround[i]);
+                unitInstance.GetComponent<UnitAbilities>().SetActivation(inactiveUnitGround[i]);
                 clickedButton.gameObject.SetActive(false);
                 return ;
             } 

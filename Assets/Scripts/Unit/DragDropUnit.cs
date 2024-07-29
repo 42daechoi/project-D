@@ -8,7 +8,7 @@ public class DragDropUnit : MonoBehaviour
     private BoxCollider activeUnitGroundBoxCollider;
     private BoxCollider saleUnitGroundBoxCollider;
     private Camera mainCamera;
-    private UnitAbilites unitAbilites;
+    private UnitAbilities unitAbilities;
     
 
     private Vector3 offset;
@@ -23,7 +23,7 @@ public class DragDropUnit : MonoBehaviour
 
         activeUnitGroundBoxCollider = GameObject.Find("ActiveUnitGround").GetComponent<BoxCollider>();
         saleUnitGroundBoxCollider = GameObject.Find("SaleUnitGround").GetComponent<BoxCollider>();
-        unitAbilites = GetComponent<UnitAbilites>();
+        unitAbilities = GetComponent<UnitAbilities>();
     }
     private void OnMouseDown()
     {
@@ -49,11 +49,12 @@ public class DragDropUnit : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.y = yPosition;
             transform.position = newPosition;
-            unitAbilites.SetActivation(null);
+            unitAbilities.SetActivation(null);
+            SynergyManager.Instance.AddSynergyList(gameObject);
         }
         else if (saleUnitBounds.Contains(transform.position))
         {
-            unitAbilites.SetActivation(null);
+            unitAbilities.SetActivation(null);
             GameManager.Instance.RemoveUnitInstance(gameObject);
             // Gold 추가 로직 구현
         }

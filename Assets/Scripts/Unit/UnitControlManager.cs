@@ -31,7 +31,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
             if (unitAbilties != null)
             {   
                 Debug.Log("유닛어빌리티 컴포넌트 잘끌고왔따 Move(유닛컨트롤매니저)");
@@ -45,7 +45,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         { 
-            UnitAbilites unitAbilites = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilites = unit.GetComponent<UnitAbilities>();
             if (unitAbilites != null)
             {
                 Debug.Log("유닛어빌리티 컴포넌트 잘끌고왔따 Move(유닛컨트롤매니저)");
@@ -58,7 +58,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
             if (unitAbilties != null)
             {
                 unitAbilties.Attack();

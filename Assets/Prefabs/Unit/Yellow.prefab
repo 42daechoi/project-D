@@ -125,8 +125,11 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 5
   probability: 0.2
-  synergiesList: []
+  synergiesList:
+  - {fileID: 11400000, guid: af1450b43998cd340925054e887a9de5, type: 2}
+  unitId: 6
   unitMarker: {fileID: 5274198827748131289}
+  rangeMarker: {fileID: 0}
 --- !u!114 &7107868855695633502
 MonoBehaviour:
   m_ObjectHideFlags: 0

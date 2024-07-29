@@ -3,7 +3,7 @@ using UnityEngine;
 public class GachaManager : MonoBehaviour
 {
     public GameObject[] units;
-    private UnitAbilites[] unitAbilitesScript;
+    private UnitAbilities[] unitAbilitesScript;
     public GameObject[] disableUnitGrounds;
 
     void Start()
@@ -19,10 +19,10 @@ public class GachaManager : MonoBehaviour
             return;
         }
 
-        unitAbilitesScript = new UnitAbilites[units.Length];
+        unitAbilitesScript = new UnitAbilities[units.Length];
         for (int i = 0; i < units.Length; i++)
         {
-            unitAbilitesScript[i] = units[i].GetComponent<UnitAbilites>();
+            unitAbilitesScript[i] = units[i].GetComponent<UnitAbilities>();
             if (unitAbilitesScript[i] == null)
             {
                 Debug.LogWarning("GachaManager: unitAbilitesScript " + i + " is null.");
