@@ -1,21 +1,18 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using projectD;
-using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using Vector3 = UnityEngine.Vector3;
 
 public class UnitAbilities : MonoBehaviour
 {
     // 유닛 전투 관련 속성
-    [Header("UnitCombatData")] 
+    [Header("UnitCombatData")]
     public float damage = 10f;
     public float attackSpeed = 1f;
     public float attackRange = 10f;
     private float lastAttackTime;
+    private bool isAttackToMove = false;
     
     // 유닛 가챠 확률 속성
     [Header("GachaPercentage")]
@@ -30,10 +27,12 @@ public class UnitAbilities : MonoBehaviour
     public GameObject unitMarker;
     public GameObject rangeMarker;
     
+    // 기타
     private GameObject placedInactiveUnitGround;
     private NavMeshAgent navAgent;
+    private Coroutine moveCoroutine;
+    private Coroutine attackCoroutine;
     
-
     private void Awake()
     {
         placedInactiveUnitGround = null;
@@ -52,10 +51,8 @@ public class UnitAbilities : MonoBehaviour
         {
             unitMarker.SetActive(false);
         }
-        
-        
     }
-
+    #region Activation Methods (활성화 메서드)
     public void SetActivation(GameObject inactiveUnitGround)
     {
         if (placedInactiveUnitGround != null)
@@ -80,13 +77,34 @@ public class UnitAbilities : MonoBehaviour
     {
         return placedInactiveUnitGround;
     }
+    #endregion
+    
+    #region Move Methods (이동 관련 메서드)
     public void MoveTo(Vector3 targetPosition)
     {
-        if (navAgent != null && navAgent.enabled)
+        if (rangeMarker != false)
         {
-            Debug.Log("잘들어왔다 무브 유닛어빌리티!");
+            rangeMarker.SetActive(false);
+        }
+
+        if (navAgent != null && navAgent.enabled && isAttackToMove == false)
+        {
+            Debug.Log("움직임으로 인한 이동");
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
+        }
+        
+        if (navAgent != null && navAgent.enabled && isAttackToMove)
+        {
+            Debug.Log("공격으로 인한 이동");
+            navAgent.isStopped = false;
+            navAgent.SetDestination(targetPosition);
+
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            moveCoroutine = StartCoroutine(CheckForMonstersWhileMoving());
         }
     }
 
@@ -94,15 +112,37 @@ public class UnitAbilities : MonoBehaviour
     {
         if (navAgent != null && navAgent.enabled)
         {
-            Debug.Log("잘들어왔다 홀드 유닛어빌리티!");
             navAgent.isStopped = true;
+            isAttackToMove = true;
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+            }
+            attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
         }
     }
-
-    public void Attack()
+    
+    public void IsMoveToOn()
     {
-        rangeMarker.SetActive(true);
-        if (Time.time >= lastAttackTime + 1f / attackSpeed)
+        if (isAttackToMove)
+        {
+            Debug.Log("어택투무브 false로 교체");
+            isAttackToMove = false;
+        }
+    }
+    #endregion
+    
+    #region Attack Methods (공격 관련 메서드)
+    public void AttackToMove(Vector3 targetPosition)
+    {
+        rangeMarker.SetActive(false);
+        isAttackToMove = true;
+        MoveTo(targetPosition);
+    }
+
+    private IEnumerator CheckForMonstersWhileMoving()
+    {
+        while (isAttackToMove)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
             foreach (var hitCollider in hitColliders)
@@ -112,22 +152,62 @@ public class UnitAbilities : MonoBehaviour
                     Monster monster = hitCollider.GetComponent<Monster>();
                     if (monster != null)
                     {
-                        monster.TakeDamage(damage);
-                        Debug.Log("몬스터를 공격했습니다.");
-                        lastAttackTime = Time.time;
-                        return; // 한 번의 공격에서 하나의 몬스터만 공격
+                        navAgent.isStopped = true;
+                        if (moveCoroutine != null)
+                        {
+                            StopCoroutine(moveCoroutine);
+                        }
+                        if (attackCoroutine != null)
+                        {
+                            StopCoroutine(attackCoroutine);
+                        }
+                        attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
+                        yield break;
                     }
                 }
             }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator CheckForMonstersAndAttack()
+    {
+        while (isAttackToMove)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Monster"))
+                {
+                    Monster monster = hitCollider.GetComponent<Monster>();
+                    if (monster != null)
+                    {
+                        Attack(monster);
+                    }
+                }
+            }
+            yield return new WaitForSeconds(1f / attackSpeed); // 공격 속도에 맞춰 주기적으로 공격
         }
     }
     
+
+    private void Attack(Monster monster)
+    {
+        if (Time.time >= lastAttackTime + 1f / attackSpeed)
+        {
+            monster.TakeDamage(damage);
+            Debug.Log("몬스터를 공격했습니다.");
+            lastAttackTime = Time.time;
+        }
+    }
+    #endregion
+    
+    #region Marker Methods (마커 메서드)
     public void SelectUnitMarker()
     {
         if (unitMarker != null)
         {
             unitMarker.SetActive(true);
-            Debug.Log("유닛어빌리티 셋엑티브 트루");
         }
     }
 
@@ -136,8 +216,17 @@ public class UnitAbilities : MonoBehaviour
         if (unitMarker != null)
         {
             unitMarker.SetActive(false);
-            Debug.Log("유닛어빌리티 셋엑티브 폴스");
         }
     }
+
+    public void AttackRangeMarkerOn()
+    {
+        if (rangeMarker != null)
+        {
+            rangeMarker.transform.localScale = new Vector3(attackRange * 2, attackRange * 2, attackRange * 2);
+            rangeMarker.SetActive(true);
+        }
+    }
+    #endregion
 
 }
