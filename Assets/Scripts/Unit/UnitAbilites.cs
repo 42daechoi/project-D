@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -25,11 +26,12 @@ public class UnitAbilites : MonoBehaviour
     public GameObject unitMarker;
     public GameObject rangeMarker;
     
+    // 기타
     private GameObject placedInactiveUnitGround;
     private NavMeshAgent navAgent;
     private Coroutine moveCoroutine;
     private Coroutine attackCoroutine;
-
+    
     private void Awake()
     {
         placedInactiveUnitGround = null;
@@ -49,7 +51,7 @@ public class UnitAbilites : MonoBehaviour
             unitMarker.SetActive(false);
         }
     }
-
+    #region Activation Methods (활성화 메서드)
     public void SetActivation(GameObject inactiveUnitGround)
     {
         if (placedInactiveUnitGround != null)
@@ -74,7 +76,9 @@ public class UnitAbilites : MonoBehaviour
     {
         return placedInactiveUnitGround;
     }
+    #endregion
     
+    #region Move Methods (이동 관련 메서드)
     public void MoveTo(Vector3 targetPosition)
     {
         if (rangeMarker != false)
@@ -107,11 +111,27 @@ public class UnitAbilites : MonoBehaviour
     {
         if (navAgent != null && navAgent.enabled)
         {
-            Debug.Log("잘들어왔다 홀드 유닛어빌리티!");
             navAgent.isStopped = true;
+            isAttackToMove = true;
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+            }
+            attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
         }
     }
-
+    
+    public void IsMoveToOn()
+    {
+        if (isAttackToMove)
+        {
+            Debug.Log("어택투무브 false로 교체");
+            isAttackToMove = false;
+        }
+    }
+    #endregion
+    
+    #region Attack Methods (공격 관련 메서드)
     public void AttackToMove(Vector3 targetPosition)
     {
         rangeMarker.SetActive(false);
@@ -168,23 +188,20 @@ public class UnitAbilites : MonoBehaviour
             yield return new WaitForSeconds(1f / attackSpeed); // 공격 속도에 맞춰 주기적으로 공격
         }
     }
+    
 
     private void Attack(Monster monster)
     {
-        Debug.Log("어택메서트 초입부분은 들어왔어");
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
-            Debug.Log("Time쪽 들어왔다나감");
-            float distanceToMonster = Vector3.Distance(transform.position, monster.transform.position);
-            if (distanceToMonster <= attackRange)
-            {
-                monster.TakeDamage(damage);
-                Debug.Log("몬스터를 공격했습니다. 거리: " + distanceToMonster);
-                lastAttackTime = Time.time;
-            }
+            monster.TakeDamage(damage);
+            Debug.Log("몬스터를 공격했습니다.");
+            lastAttackTime = Time.time;
         }
     }
-
+    #endregion
+    
+    #region Marker Methods (마커 메서드)
     public void SelectUnitMarker()
     {
         if (unitMarker != null)
@@ -209,13 +226,6 @@ public class UnitAbilites : MonoBehaviour
             rangeMarker.SetActive(true);
         }
     }
+    #endregion
 
-    public void IsMoveToOn()
-    {
-        if (isAttackToMove)
-        {
-            Debug.Log("어택투무브 false로 교체");
-            isAttackToMove = false;
-        }
-    }
 }
