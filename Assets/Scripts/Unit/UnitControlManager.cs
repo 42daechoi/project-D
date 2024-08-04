@@ -63,7 +63,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
             if (unitAbilties != null)
             {
                 unitAbilties.AttackToMove(targetPosition);
