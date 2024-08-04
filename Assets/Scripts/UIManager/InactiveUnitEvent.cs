@@ -25,7 +25,7 @@ public class InactiveUnitEvent : MonoBehaviour
 
 		foreach (GameObject unit in selectedUnits)
 		{
-            UnitAbilites ua = unit.GetComponent<UnitAbilites>();
+            UnitAbilities ua = unit.GetComponent<UnitAbilities>();
             foreach (GameObject so in sortedObjects)
 			{
 				VerifyActivation verifyActivation = so.GetComponent<VerifyActivation>();
@@ -36,7 +36,8 @@ public class InactiveUnitEvent : MonoBehaviour
 
 					ua.SetActivation(so);
                     unit.transform.position = placePosition;
-					break ;
+                    SynergyManager.Instance.RemoveSynergyList(unit);
+                    break ;
 				}
 			}
 		}

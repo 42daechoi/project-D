@@ -7,7 +7,7 @@ using UnityEngine;
 public class ExecutionSynergy : Synergy
 {
     private float executionHealthRatio = 0.1f;
-    public override void ApplySynergyToMonster(Monster monster, UnitAbilites ua)
+    public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
         if (monster.MaxHp * executionHealthRatio >= monster.Hp)
         {

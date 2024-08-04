@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         foreach (GameObject unitInstance in unitInstanceList)
         {
-            UnitAbilites unitAbilites = unitInstance.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilites = unitInstance.GetComponent<UnitAbilities>();
             
             if (!unitAbilites.GetActivation())
             {
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         {
             foreach (GameObject unit in selectedUnits)
             {
-                UnitAbilites unitAbilities = unit.GetComponent<UnitAbilites>();
+                UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
                 if (unitAbilities != null)
                 {
                     unitAbilities.DeSelectUnitMarker();
@@ -140,11 +140,11 @@ public class GameManager : MonoBehaviour
         
         for (int i = 0; i < selectedUnits.Length; i++)
         {
-            UnitAbilites unitAbilites = selectedUnits[i].GetComponent<UnitAbilites>();
-            if (unitAbilites != null)
+            UnitAbilities unitAbilities = selectedUnits[i].GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
             {
                 Debug.Log(selectedUnits[i]);
-                unitAbilites.SelectUnitMarker();
+                unitAbilities.SelectUnitMarker();
             }
         }
     }

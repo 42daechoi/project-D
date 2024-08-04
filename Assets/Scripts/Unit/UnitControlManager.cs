@@ -26,7 +26,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
             if (unitAbilties != null)
             {   
                 unitAbilties.IsMoveToOn();
@@ -39,7 +39,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         { 
-            UnitAbilites unitAbilites = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilites = unit.GetComponent<UnitAbilities>();
             if (unitAbilites != null)
             {
                 unitAbilites.HoldPosition();
@@ -51,7 +51,7 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
+            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
             if (unitAbilties != null)
             {
                 unitAbilties.AttackRangeMarkerOn();
