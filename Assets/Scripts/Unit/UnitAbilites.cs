@@ -28,6 +28,7 @@ public class UnitAbilites : MonoBehaviour
     private GameObject placedInactiveUnitGround;
     private NavMeshAgent navAgent;
     private Coroutine moveCoroutine;
+    private Coroutine attackCoroutine;
 
     private void Awake()
     {
@@ -80,10 +81,17 @@ public class UnitAbilites : MonoBehaviour
         {
             rangeMarker.SetActive(false);
         }
-        
-        if (navAgent != null && navAgent.enabled)
+
+        if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
-            Debug.Log("잘들어왔다 무브 유닛어빌리티!");
+            Debug.Log("움직임으로 인한 이동");
+            navAgent.isStopped = false;
+            navAgent.SetDestination(targetPosition);
+        }
+        
+        if (navAgent != null && navAgent.enabled && isAttackToMove)
+        {
+            Debug.Log("공격으로 인한 이동");
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
 
@@ -120,19 +128,44 @@ public class UnitAbilites : MonoBehaviour
             {
                 if (hitCollider.CompareTag("Monster"))
                 {
-                    Debug.Log("안심해 코루틴에들어왔어");
-                    HoldPosition();
+                    Monster monster = hitCollider.GetComponent<Monster>();
+                    if (monster != null)
+                    {
+                        navAgent.isStopped = true;
+                        if (moveCoroutine != null)
+                        {
+                            StopCoroutine(moveCoroutine);
+                        }
+                        if (attackCoroutine != null)
+                        {
+                            StopCoroutine(attackCoroutine);
+                        }
+                        attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
+                        yield break;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private IEnumerator CheckForMonstersAndAttack()
+    {
+        while (isAttackToMove)
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Monster"))
+                {
                     Monster monster = hitCollider.GetComponent<Monster>();
                     if (monster != null)
                     {
                         Attack(monster);
-                        Debug.Log("공격하고 빠졌어");
-                        isAttackToMove = false;
-                        yield break; // 코루틴 종료
                     }
                 }
             }
-            yield return new WaitForSeconds(0.1f); // 주기적으로 체크 (0.1초 간격)
+            yield return new WaitForSeconds(1f / attackSpeed); // 공격 속도에 맞춰 주기적으로 공격
         }
     }
 
@@ -141,6 +174,7 @@ public class UnitAbilites : MonoBehaviour
         Debug.Log("어택메서트 초입부분은 들어왔어");
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
+            Debug.Log("Time쪽 들어왔다나감");
             float distanceToMonster = Vector3.Distance(transform.position, monster.transform.position);
             if (distanceToMonster <= attackRange)
             {
@@ -156,7 +190,6 @@ public class UnitAbilites : MonoBehaviour
         if (unitMarker != null)
         {
             unitMarker.SetActive(true);
-            Debug.Log("유닛어빌리티 셋엑티브 트루");
         }
     }
 
@@ -165,7 +198,6 @@ public class UnitAbilites : MonoBehaviour
         if (unitMarker != null)
         {
             unitMarker.SetActive(false);
-            Debug.Log("유닛어빌리티 셋엑티브 폴스");
         }
     }
 
@@ -175,6 +207,15 @@ public class UnitAbilites : MonoBehaviour
         {
             rangeMarker.transform.localScale = new Vector3(attackRange * 2, attackRange * 2, attackRange * 2);
             rangeMarker.SetActive(true);
+        }
+    }
+
+    public void IsMoveToOn()
+    {
+        if (isAttackToMove)
+        {
+            Debug.Log("어택투무브 false로 교체");
+            isAttackToMove = false;
         }
     }
 }

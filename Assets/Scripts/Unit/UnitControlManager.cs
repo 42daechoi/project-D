@@ -29,6 +29,7 @@ public class UnitControlManager : MonoBehaviour
             UnitAbilites unitAbilties = unit.GetComponent<UnitAbilites>();
             if (unitAbilties != null)
             {   
+                unitAbilties.IsMoveToOn();
                 unitAbilties.MoveTo(targetPosition);
             }
         }
