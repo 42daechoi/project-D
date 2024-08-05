@@ -42,7 +42,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        
+        if (selectedUnits == null)
+        {
+            return;
+        }
         // 유닛 이동
         if (Input.GetMouseButtonDown(1))
         {
