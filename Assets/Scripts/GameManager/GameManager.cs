@@ -132,15 +132,15 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        
+
         if (selectedUnitsList == null || selectedUnitsList.Count == 0)
         {
             selectedUnits = null;
             return;
         }
-        
+
         selectedUnits = selectedUnitsList.ToArray();
-        
+
         for (int i = 0; i < selectedUnits.Length; i++)
         {
             UnitAbilities unitAbilities = selectedUnits[i].GetComponent<UnitAbilities>();
@@ -152,5 +152,25 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public void DeselectUnit(GameObject unit)
+    {
+        if (selectedUnits == null)
+        {
+            return;
+        }
+
+        List<GameObject> updatedSelectedUnits = new List<GameObject>(selectedUnits);
+        if (updatedSelectedUnits.Contains(unit))
+        {
+            updatedSelectedUnits.Remove(unit);
+            selectedUnits = updatedSelectedUnits.ToArray();
+
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
+            {
+                unitAbilities.DeSelectUnitMarker();
+            }
+        }
+    }
     
 }

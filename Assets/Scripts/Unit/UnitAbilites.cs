@@ -67,7 +67,9 @@ public class UnitAbilities : MonoBehaviour
             VerifyActivation iugVa = inactiveUnitGround.GetComponent<VerifyActivation>();
             iugVa.SetActivation(true);
             navAgent.enabled = false;
+            Debug.Log("대기열에있지만 활성화중");
             // 새로운 유닛의 NavMeshAgent 활성화
+            GameManager.Instance.DeselectUnit(gameObject);
         }
 
         placedInactiveUnitGround = inactiveUnitGround;
