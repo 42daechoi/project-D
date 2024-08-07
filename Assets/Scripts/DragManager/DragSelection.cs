@@ -24,7 +24,7 @@ public class DragSelection : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            isInAllowArea = Input.mousePosition.x > 400 && Input.mousePosition.x < 1500;
+            isInAllowArea = Input.mousePosition.x > 400 && Input.mousePosition.x < 1500 && Input.mousePosition.y > 160;
             if (isInAllowArea)
             {
                 startPosition = Input.mousePosition;

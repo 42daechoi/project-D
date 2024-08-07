@@ -11,6 +11,9 @@ public class SynergyManager : MonoBehaviour
     public Dictionary<Synergy, List<UnitAbilities>> activeSynergies;
     public Dictionary<string, int[]> synergyRequirements;
 
+    private SynergyUI synergyUI;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -21,12 +24,13 @@ public class SynergyManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        activeSynergies = new Dictionary<Synergy, List<UnitAbilities>>();
+        synergyRequirements = new Dictionary<string, int[]>();
     }
 
     void Start()
     {
-        activeSynergies = new Dictionary<Synergy, List<UnitAbilities>>();
-        synergyRequirements = new Dictionary<string, int[]>();
+        synergyUI = FindObjectOfType<SynergyUI>();
         InitSynergyRequirements();
     }
 
@@ -104,9 +108,13 @@ public class SynergyManager : MonoBehaviour
                 }
             }
         }
+        if (synergyUI != null)
+        {
+            synergyUI.UpdateSynergyUI();
+        }
     }
 
-    private int GetSynergyCountWithoutDuplicate(List<UnitAbilities> unitsWithSynergy)
+    public int GetSynergyCountWithoutDuplicate(List<UnitAbilities> unitsWithSynergy)
     {
         HashSet<int> unitIdHashSet = new HashSet<int>();
         foreach(UnitAbilities ua in unitsWithSynergy)
