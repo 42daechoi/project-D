@@ -12,7 +12,15 @@ public class SynergyUI : MonoBehaviour
 	public GameObject textPrefab;
 	public Transform synergyPanel;
 
-	public void UpdateSynergyUI()
+
+    private void Start()
+    {
+        if (synergyPanel == null)
+        {
+            Debug.LogError("Synergy Panel이 할당되지 않았습니다.");
+        }
+    }
+    public void UpdateSynergyUI()
 	{
 		Dictionary<Synergy, List<UnitAbilities>> activeSynergies = SynergyManager.Instance.activeSynergies;
 		Dictionary<string, int[]> synergyRequirements = SynergyManager.Instance.synergyRequirements;
@@ -35,9 +43,8 @@ public class SynergyUI : MonoBehaviour
 
 	private string ParseSynergyUIText(string synergyName, int synergyUnitCount, int[] synergyReqArr)
 	{
-		string res = "";
+        string res = $"{synergyName} : {synergyUnitCount} [";
 
-		res += synergyName + " : " + synergyUnitCount + " [";
         for (int i = 0; i < synergyReqArr.Length; i++)
         {
             res += synergyReqArr[i];
