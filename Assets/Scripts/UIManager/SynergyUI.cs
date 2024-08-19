@@ -17,12 +17,16 @@ public class SynergyUI : MonoBehaviour
     {
         if (synergyPanel == null)
         {
-            Debug.LogError("Synergy Panel이 할당되지 않았습니다.");
+            synergyPanel = GameObject.Find("SynergyPanel")?.transform;
+            if (synergyPanel == null)
+            {
+                Debug.LogError("Synergy Panel이 할당되지 않았습니다.");
+            }
         }
     }
     public void UpdateSynergyUI()
 	{
-		Dictionary<Synergy, List<UnitAbilities>> activeSynergies = SynergyManager.Instance.activeSynergies;
+		Dictionary<Synergy, List<UnitAbilities>> synergiesList = SynergyManager.Instance.synergiesList;
 		Dictionary<string, int[]> synergyRequirements = SynergyManager.Instance.synergyRequirements;
         foreach (Transform child in synergyPanel)
 		{
@@ -30,11 +34,11 @@ public class SynergyUI : MonoBehaviour
 		}
 
 		// 새로운 시너지 UI 요소 추가
-		foreach (Synergy synergy in activeSynergies.Keys)
+		foreach (Synergy synergy in synergiesList.Keys)
 		{
 			GameObject newText = Instantiate(textPrefab, synergyPanel);
 			TextMeshProUGUI tmpText = newText.GetComponent<TextMeshProUGUI>();
-			int synergyUnitCount = SynergyManager.Instance.GetSynergyCountWithoutDuplicate(activeSynergies[synergy]);
+			int synergyUnitCount = SynergyManager.Instance.GetSynergyCountWithoutDuplicate(synergiesList[synergy]);
             int[] synergyReqArr = synergyRequirements[synergy.name];
 
 			tmpText.text = ParseSynergyUIText(synergy.name, synergyUnitCount, synergyReqArr);
