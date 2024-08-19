@@ -8,6 +8,10 @@ public class IncreaseAttackSpeedSynergy : Synergy
 {
     private float increaseSpeedRate = 0.1f;
 
+    private void OnEnable()
+    {
+        target = "Unit";
+    }
     public override void ApplySynergyToUnit(UnitAbilities ua, int upgrade)
     {
         if (upgrade == 1) ua.attackSpeed += increaseSpeedRate;

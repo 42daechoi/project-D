@@ -8,6 +8,10 @@ public class HealthProportionalSynergy : Synergy
 {
     private float healthProportionalRate = 0.1f;
 
+    private void OnEnable()
+    {
+        target = "Monster";
+    }
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
         float additianalDamage = monster.Hp * healthProportionalRate;

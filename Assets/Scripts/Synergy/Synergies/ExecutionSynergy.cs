@@ -6,6 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExecutionSynergy", menuName = "Custom/ExecutionSynergy", order = 1)]
 public class ExecutionSynergy : Synergy
 {
+    private void OnEnable()
+    {
+        target = "Monster";
+    }
     private float executionHealthRatio = 0.1f;
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {

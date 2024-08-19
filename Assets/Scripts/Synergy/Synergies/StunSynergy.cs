@@ -7,6 +7,11 @@ using UnityEngine;
 public class StunSynergy : Synergy
 {
     public float originalSpeed;
+
+    private void OnEnable()
+    {
+        target = "Monster";
+    }
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
         originalSpeed = monster.Speed;

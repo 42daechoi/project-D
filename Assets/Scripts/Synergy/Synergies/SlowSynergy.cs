@@ -8,6 +8,11 @@ public class SlowSynergy : Synergy
 {
     public float slowdownRate = 0.5f;
     public float originalSpeed;
+
+    private void OnEnable()
+    {
+        target = "Monster";
+    }
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
         originalSpeed = monster.Speed;
@@ -17,5 +22,4 @@ public class SlowSynergy : Synergy
     {
         monster.Speed = originalSpeed;
     }
-
 }

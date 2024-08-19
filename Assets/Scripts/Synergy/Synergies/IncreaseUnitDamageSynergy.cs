@@ -8,6 +8,11 @@ public class IncreaseUnitDamageSynergy : Synergy
 {
     private int increaseDamage = 20;
 
+    private void OnEnable()
+    {
+        target = "Unit";
+    }
+
     public override void ApplySynergyToUnit(UnitAbilities ua, int upgrade)
     {
         if (upgrade == 1) ua.damage += increaseDamage;
