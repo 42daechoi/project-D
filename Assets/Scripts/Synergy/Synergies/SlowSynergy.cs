@@ -7,10 +7,15 @@ using UnityEngine;
 public class SlowSynergy : Synergy
 {
     public float slowdownRate = 0.5f;
+    public float originalSpeed;
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
+        originalSpeed = monster.Speed;
         monster.Speed *= slowdownRate;
     }
-
+    public override void RemoveSynergyToMonster(Monster monster, UnitAbilities ua)
+    {
+        monster.Speed = originalSpeed;
+    }
 
 }
