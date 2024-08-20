@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using projectD;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -200,6 +201,15 @@ public class UnitAbilities : MonoBehaviour
             monster.TakeDamage(damage);
             Debug.Log("몬스터를 공격했습니다.");
             lastAttackTime = Time.time;
+
+            foreach (ScriptableObject so in synergiesList)
+            {
+                Synergy synergy = (so as Synergy);
+                if (synergy.target == "Monster")
+                {
+                    synergy.ApplySynergyToMonster(monster, this);
+                }
+            }
         }
     }
     #endregion

@@ -175,7 +175,7 @@ MonoBehaviour:
   attackRange: 2
   probability: 0.1
   synergiesList:
-  - {fileID: 11400000, guid: a086aba7f3af7e848b3fe5cdf4e23baf, type: 2}
+  - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
   unitId: 1
   unitMarker: {fileID: 8529574225229429632}
   rangeMarker: {fileID: 8042601031474910771}
