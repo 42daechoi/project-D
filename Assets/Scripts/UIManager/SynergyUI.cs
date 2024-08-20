@@ -20,7 +20,7 @@ public class SynergyUI : MonoBehaviour
             synergyPanel = GameObject.Find("SynergyPanel")?.transform;
             if (synergyPanel == null)
             {
-                Debug.LogError("Synergy PanelÀÌ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+                Debug.LogError("Synergy Panelì´ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
             }
         }
     }
@@ -33,7 +33,7 @@ public class SynergyUI : MonoBehaviour
 			Destroy(child.gameObject);
 		}
 
-		// »õ·Î¿î ½Ã³ÊÁö UI ¿ä¼Ò Ãß°¡
+		// ìƒˆë¡œìš´ ì‹œë„ˆì§€ UI ìš”ì†Œ ì¶”ê°€
 		foreach (Synergy synergy in synergiesList.Keys)
 		{
 			GameObject newText = Instantiate(textPrefab, synergyPanel);

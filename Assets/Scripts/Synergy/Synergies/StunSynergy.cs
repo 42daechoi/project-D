@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StunSynergy", menuName = "Custom/StunSynergy", order = 1)]
 public class StunSynergy : Synergy
 {
-    public float originalSpeed;
+    public float stunDuration = 2f;
 
     private void OnEnable()
     {
@@ -14,11 +14,10 @@ public class StunSynergy : Synergy
     }
     public override void ApplySynergyToMonster(Monster monster, UnitAbilities ua)
     {
-        originalSpeed = monster.Speed;
-        monster.Speed = 0f;
+        monster.ApplyStun(stunDuration);
     }
-    public override void RemoveSynergyToMonster(Monster monster, UnitAbilities ua)
-    {
-        monster.Speed = originalSpeed;
-    }
+    // public override void RemoveSynergyToMonster(Monster monster, UnitAbilities ua)
+    // {
+    //     monster.Speed = originalSpeed;
+    // }
 }

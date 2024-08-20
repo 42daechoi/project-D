@@ -47,6 +47,7 @@ public class SynergyManager : MonoBehaviour
 			if (!synergiesList.ContainsKey(synergy))
 			{
 				synergiesList[synergy] = new List<UnitAbilities>();
+				Debug.Log("없는 시너지 정상적용완료");
 			}
 			synergiesList[synergy].Add(uaScript);
 		}

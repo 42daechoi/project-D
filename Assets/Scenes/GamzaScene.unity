@@ -521,8 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfd94e6a237a0c49bce7d8b7c5a4698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textPrefab: {fileID: 0}
-  synergyPanel: {fileID: 0}
+  textPrefab: {fileID: 3137448034958036234, guid: 2525c1cbbe87e03468c476257d926d00, type: 3}
+  synergyPanel: {fileID: 1692178386}
 --- !u!114 &378098098
 MonoBehaviour:
   m_ObjectHideFlags: 0

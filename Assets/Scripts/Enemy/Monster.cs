@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -19,6 +20,7 @@ public class Monster : MonoBehaviour
     public Transform[] waypoints;
 
     private int waypointIndex = 0;
+    private Coroutine stunCoroutine;
 
     void Start()
     {
@@ -57,6 +59,29 @@ public class Monster : MonoBehaviour
         {
             Dead();
         }
+    }
+
+    public void ApplyStun(float duration)
+    {
+        if (stunCoroutine != null)
+        {
+            StopCoroutine(stunCoroutine);
+        }
+
+        stunCoroutine = StartCoroutine(StunCoroutine(duration));
+    }
+
+    private IEnumerator StunCoroutine(float duration)
+    {
+        float originalSpeed = Speed;
+        Speed = 0f;
+        Debug.Log("몬스터가 스턴");
+
+        yield return new WaitForSeconds(duration);
+
+        Speed = originalSpeed;
+        Debug.Log("몬스터의 스턴이 해제");
+        stunCoroutine = null;
     }
 
     public void Dead()
