@@ -82,7 +82,9 @@ public class SynergyManager : MonoBehaviour
 		synergyRequirements["HealthProportionalSynergy"] = new int[] { 2, 4 };
 		synergyRequirements["IncreaseAttackSpeedSynergy"] = new int[] { 3, 6 };
 		synergyRequirements["IncreaseUnitDamageSynergy"] = new int[] { 2, 4 };
-	}
+        synergyRequirements["StunSynergy"] = new int[] { 2, 4 };
+        synergyRequirements["SlowSynergy"] = new int[] { 2, 4 };
+    }
 
 	private void UpdateSynergy()
 	{
