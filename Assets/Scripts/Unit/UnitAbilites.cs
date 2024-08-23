@@ -33,11 +33,14 @@ public class UnitAbilities : MonoBehaviour
     private NavMeshAgent navAgent;
     private Coroutine moveCoroutine;
     private Coroutine attackCoroutine;
+    private Animator unitAnim;
     
     private void Awake()
     {
         placedInactiveUnitGround = null;
+        unitAnim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+        
 
         if (navAgent == null)
         {
@@ -93,6 +96,7 @@ public class UnitAbilities : MonoBehaviour
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
             Debug.Log("움직임으로 인한 이동");
+            unitAnim.SetTrigger("Walk");
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
         }
@@ -113,6 +117,7 @@ public class UnitAbilities : MonoBehaviour
 
     public void HoldPosition()
     {
+        //unitAnim.SetTrigger("Stand");
         if (navAgent != null && navAgent.enabled)
         {
             navAgent.isStopped = true;
@@ -196,6 +201,7 @@ public class UnitAbilities : MonoBehaviour
 
     private void Attack(Monster monster)
     {
+        unitAnim.SetTrigger("Attack");
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             monster.TakeDamage(damage);
