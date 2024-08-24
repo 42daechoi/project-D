@@ -26,11 +26,11 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
-            if (unitAbilties != null)
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
             {   
-                unitAbilties.IsMoveToOn();
-                unitAbilties.MoveTo(targetPosition);
+                unitAbilities.IsMoveToOn();
+                unitAbilities.MoveTo(targetPosition);
             }
         }
     }
@@ -39,10 +39,10 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         { 
-            UnitAbilities unitAbilites = unit.GetComponent<UnitAbilities>();
-            if (unitAbilites != null)
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
             {
-                unitAbilites.HoldPosition();
+                unitAbilities.HoldPosition();
             }
         }   
     }
@@ -51,10 +51,10 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
-            if (unitAbilties != null)
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
             {
-                unitAbilties.AttackRangeMarkerOn();
+                unitAbilities.AttackRangeMarkerOn();
             }
         }
     }
@@ -63,10 +63,10 @@ public class UnitControlManager : MonoBehaviour
     {
         foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
         {
-            UnitAbilities unitAbilties = unit.GetComponent<UnitAbilities>();
-            if (unitAbilties != null)
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
             {
-                unitAbilties.AttackToMove(targetPosition);
+                unitAbilities.AttackToMove(targetPosition);
                 Debug.Log("유닛어택!(유닛컨트롤매니저)");
             }
         }

@@ -281,10 +281,20 @@ public class UnitAbilities : MonoBehaviour
     {
         if (rangeMarker != null)
         {
-            rangeMarker.transform.localScale = new Vector3(attackRange * 2, attackRange * 2, attackRange * 2);
+            // attackRange를 지름으로 사용하여 rangeMarker의 스케일 설정
+            rangeMarker.transform.localScale = new Vector3(attackRange * (1.6f / 2f), attackRange * (1.6f / 2f), attackRange * (1.6f / 2f));
             rangeMarker.SetActive(true);
         }
     }
+    private void OnDrawGizmosSelected()
+    {
+        // 유닛이 선택된 상태에서만 Gizmos를 그립니다.
+        Gizmos.color = Color.red; // Gizmos의 색상을 설정합니다.
+        
+        // 유닛의 위치에서 공격 범위만큼의 구를 그립니다.
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
     #endregion
 
 }
