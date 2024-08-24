@@ -11,7 +11,7 @@ public class UnitAbilities : MonoBehaviour
     [Header("UnitCombatData")]
     public float damage = 10f;
     public float attackSpeed = 1f;
-    public float attackRange = 10f;
+    public float attackRange;
     private float lastAttackTime;
     private bool isAttackToMove = false;
     
@@ -40,6 +40,7 @@ public class UnitAbilities : MonoBehaviour
         placedInactiveUnitGround = null;
         unitAnim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+
         
 
         if (navAgent == null)
@@ -64,6 +65,9 @@ public class UnitAbilities : MonoBehaviour
             VerifyActivation placedIugVa = placedInactiveUnitGround.GetComponent<VerifyActivation>();
             placedIugVa.SetActivation(false);
             navAgent.enabled = true;
+            navAgent.angularSpeed = 1080f;
+            navAgent.acceleration = 1000f;
+
         }
 
         if (inactiveUnitGround != null)
@@ -96,6 +100,7 @@ public class UnitAbilities : MonoBehaviour
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
             Debug.Log("움직임으로 인한 이동");
+            unitAnim.SetBool("isAttacking", false);
             unitAnim.SetBool("isWalking", true);
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
@@ -175,6 +180,7 @@ public class UnitAbilities : MonoBehaviour
         while (isAttackToMove)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            bool monsterFound = false;
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.CompareTag("Monster"))
@@ -182,7 +188,9 @@ public class UnitAbilities : MonoBehaviour
                     Monster monster = hitCollider.GetComponent<Monster>();
                     if (monster != null)
                     {
+                        monsterFound = true;
                         navAgent.isStopped = true;
+                        unitAnim.SetBool("isWalking", false);
                         if (moveCoroutine != null)
                         {
                             StopCoroutine(moveCoroutine);
@@ -194,6 +202,16 @@ public class UnitAbilities : MonoBehaviour
                         attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
                         yield break;
                     }
+                }
+            }
+            if (!monsterFound)
+            {
+                // 몬스터가 없으면 목표 지점으로 계속 이동
+                if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
+                {
+                    // 목표 지점에 도착하면 HoldPosition 호출
+                    HoldPosition();
+                    yield break;
                 }
             }
             yield return new WaitForSeconds(0.1f);
@@ -223,7 +241,7 @@ public class UnitAbilities : MonoBehaviour
 
     private void Attack(Monster monster)
     {
-        unitAnim.SetTrigger("Attack");
+        unitAnim.SetBool("isAttacking", true);
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             monster.TakeDamage(damage);
