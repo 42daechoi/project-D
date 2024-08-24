@@ -96,15 +96,21 @@ public class UnitAbilities : MonoBehaviour
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
             Debug.Log("움직임으로 인한 이동");
-            unitAnim.SetTrigger("Walk");
+            unitAnim.SetBool("isWalking", true);
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            moveCoroutine = StartCoroutine(CheckArrival());
         }
         
         if (navAgent != null && navAgent.enabled && isAttackToMove)
         {
             Debug.Log("공격으로 인한 이동");
             navAgent.isStopped = false;
+            unitAnim.SetBool("isWalking", true);
             navAgent.SetDestination(targetPosition);
 
             if (moveCoroutine != null)
@@ -112,6 +118,21 @@ public class UnitAbilities : MonoBehaviour
                 StopCoroutine(moveCoroutine);
             }
             moveCoroutine = StartCoroutine(CheckForMonstersWhileMoving());
+        }
+    }
+    private IEnumerator CheckArrival()
+    {
+        while (navAgent != null && navAgent.enabled)
+        {
+            // remainingDistance가 stoppingDistance 이하일 때 도착으로 판단
+            if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
+            {
+                // 도착 시 애니메이션 정지
+                unitAnim.SetBool("isWalking", false);
+                navAgent.isStopped = true;
+                yield break; // 코루틴 종료
+            }
+            yield return null; // 다음 프레임까지 대기
         }
     }
 
@@ -122,6 +143,7 @@ public class UnitAbilities : MonoBehaviour
         {
             navAgent.isStopped = true;
             isAttackToMove = true;
+            unitAnim.SetBool("isWalking", false);
             if (attackCoroutine != null)
             {
                 StopCoroutine(attackCoroutine);
