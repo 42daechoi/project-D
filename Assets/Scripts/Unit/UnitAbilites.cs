@@ -212,6 +212,12 @@ public class UnitAbilities : MonoBehaviour
             }
         }
     }
+
+    private void AddParticleToAttack(Monster monster)
+    {
+        //if (monster == null) return;
+        //monster.gameObject.position
+    }
     #endregion
     
     #region Marker Methods (마커 메서드)

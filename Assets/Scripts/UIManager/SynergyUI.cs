@@ -13,25 +13,10 @@ public class SynergyUI : MonoBehaviour
 	public Transform synergyPanel;
 
 
-    private void Start()
-    {
-        if (synergyPanel == null)
-        {
-            synergyPanel = GameObject.Find("SynergyPanel")?.transform;
-            if (synergyPanel == null)
-            {
-                Debug.LogError("Synergy Panel이 할당되지 않았습니다.");
-            }
-        }
-    }
     public void UpdateSynergyUI()
 	{
 		Dictionary<Synergy, List<UnitAbilities>> synergiesList = SynergyManager.Instance.synergiesList;
 		Dictionary<string, int[]> synergyRequirements = SynergyManager.Instance.synergyRequirements;
-        foreach (Transform child in synergyPanel)
-		{
-			Destroy(child.gameObject);
-		}
 
 		// 새로운 시너지 UI 요소 추가
 		foreach (Synergy synergy in synergiesList.Keys)
