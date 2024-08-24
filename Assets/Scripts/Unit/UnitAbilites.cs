@@ -11,7 +11,7 @@ public class UnitAbilities : MonoBehaviour
     [Header("UnitCombatData")]
     public float damage = 10f;
     public float attackSpeed = 1f;
-    public float attackRange = 10f;
+    public float attackRange;
     private float lastAttackTime;
     private bool isAttackToMove = false;
     
@@ -33,11 +33,15 @@ public class UnitAbilities : MonoBehaviour
     private NavMeshAgent navAgent;
     private Coroutine moveCoroutine;
     private Coroutine attackCoroutine;
+    private Animator unitAnim;
     
     private void Awake()
     {
         placedInactiveUnitGround = null;
+        unitAnim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+
+        
 
         if (navAgent == null)
         {
@@ -61,6 +65,9 @@ public class UnitAbilities : MonoBehaviour
             VerifyActivation placedIugVa = placedInactiveUnitGround.GetComponent<VerifyActivation>();
             placedIugVa.SetActivation(false);
             navAgent.enabled = true;
+            navAgent.angularSpeed = 1080f;
+            navAgent.acceleration = 1000f;
+
         }
 
         if (inactiveUnitGround != null)
@@ -93,14 +100,22 @@ public class UnitAbilities : MonoBehaviour
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
             Debug.Log("움직임으로 인한 이동");
+            unitAnim.SetBool("isAttacking", false);
+            unitAnim.SetBool("isWalking", true);
             navAgent.isStopped = false;
             navAgent.SetDestination(targetPosition);
+            if (moveCoroutine != null)
+            {
+                StopCoroutine(moveCoroutine);
+            }
+            moveCoroutine = StartCoroutine(CheckArrival());
         }
         
         if (navAgent != null && navAgent.enabled && isAttackToMove)
         {
             Debug.Log("공격으로 인한 이동");
             navAgent.isStopped = false;
+            unitAnim.SetBool("isWalking", true);
             navAgent.SetDestination(targetPosition);
 
             if (moveCoroutine != null)
@@ -110,13 +125,30 @@ public class UnitAbilities : MonoBehaviour
             moveCoroutine = StartCoroutine(CheckForMonstersWhileMoving());
         }
     }
+    private IEnumerator CheckArrival()
+    {
+        while (navAgent != null && navAgent.enabled)
+        {
+            // remainingDistance가 stoppingDistance 이하일 때 도착으로 판단
+            if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
+            {
+                // 도착 시 애니메이션 정지
+                unitAnim.SetBool("isWalking", false);
+                navAgent.isStopped = true;
+                yield break; // 코루틴 종료
+            }
+            yield return null; // 다음 프레임까지 대기
+        }
+    }
 
     public void HoldPosition()
     {
+        //unitAnim.SetTrigger("Stand");
         if (navAgent != null && navAgent.enabled)
         {
             navAgent.isStopped = true;
             isAttackToMove = true;
+            unitAnim.SetBool("isWalking", false);
             if (attackCoroutine != null)
             {
                 StopCoroutine(attackCoroutine);
@@ -148,6 +180,7 @@ public class UnitAbilities : MonoBehaviour
         while (isAttackToMove)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            bool monsterFound = false;
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.CompareTag("Monster"))
@@ -155,7 +188,9 @@ public class UnitAbilities : MonoBehaviour
                     Monster monster = hitCollider.GetComponent<Monster>();
                     if (monster != null)
                     {
+                        monsterFound = true;
                         navAgent.isStopped = true;
+                        unitAnim.SetBool("isWalking", false);
                         if (moveCoroutine != null)
                         {
                             StopCoroutine(moveCoroutine);
@@ -167,6 +202,16 @@ public class UnitAbilities : MonoBehaviour
                         attackCoroutine = StartCoroutine(CheckForMonstersAndAttack());
                         yield break;
                     }
+                }
+            }
+            if (!monsterFound)
+            {
+                // 몬스터가 없으면 목표 지점으로 계속 이동
+                if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
+                {
+                    // 목표 지점에 도착하면 HoldPosition 호출
+                    HoldPosition();
+                    yield break;
                 }
             }
             yield return new WaitForSeconds(0.1f);
@@ -196,6 +241,7 @@ public class UnitAbilities : MonoBehaviour
 
     private void Attack(Monster monster)
     {
+        unitAnim.SetBool("isAttacking", true);
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             monster.TakeDamage(damage);
