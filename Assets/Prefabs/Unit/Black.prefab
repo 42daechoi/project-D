@@ -122,9 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc2d0ada155ef24884c133f95e55890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 100
   attackSpeed: 1
   attackRange: 5
+  particle: {fileID: 5190627873338535603, guid: e106a6f8ebc7d04409607367c9388b0a, type: 3}
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: a086aba7f3af7e848b3fe5cdf4e23baf, type: 2}
