@@ -14,6 +14,7 @@ public class UnitAbilities : MonoBehaviour
     public float attackRange = 10f;
     private float lastAttackTime;
     private bool isAttackToMove = false;
+    public ParticleSystem particle;
     
     // 유닛 가챠 확률 속성
     [Header("GachaPercentage")]
@@ -199,6 +200,7 @@ public class UnitAbilities : MonoBehaviour
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             monster.TakeDamage(damage);
+            AddParticleToAttack(monster);
             Debug.Log("몬스터를 공격했습니다.");
             lastAttackTime = Time.time;
 
@@ -215,11 +217,29 @@ public class UnitAbilities : MonoBehaviour
 
     private void AddParticleToAttack(Monster monster)
     {
-        //if (monster == null) return;
-        //monster.gameObject.position
+        if (monster == null) return;
+        ParticleSystem particleInstance = Instantiate(particle, transform.position, transform.rotation);
+        StartCoroutine(MoveParticle(particleInstance, monster.transform.position));
+
+    }
+
+    private IEnumerator MoveParticle(ParticleSystem particleInstance, Vector3 targetPosition)
+    {
+        float moveSpeed = 20.0f;
+        while (Vector3.Distance(particleInstance.transform.position, targetPosition) > 0.1f)
+        {
+            // 파티클의 위치를 천천히 이동
+            particleInstance.transform.position = Vector3.MoveTowards(particleInstance.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        // 최종 위치에서 멈추기
+        particleInstance.transform.position = targetPosition;
+        yield return new WaitForSeconds(0.3f);
+        Destroy(particleInstance.gameObject);
     }
     #endregion
-    
+
     #region Marker Methods (마커 메서드)
     public void SelectUnitMarker()
     {
