@@ -11,7 +11,7 @@ public class UnitAbilities : MonoBehaviour
     [Header("UnitCombatData")]
     public float damage = 10f;
     public float attackSpeed = 1f;
-    public float attackRange;
+    public float attackRange = 2f;
     private float lastAttackTime;
     private bool isAttackToMove = false;
     
@@ -26,7 +26,7 @@ public class UnitAbilities : MonoBehaviour
     
     // 유닛 선택 마커
     public GameObject unitMarker;
-    public GameObject rangeMarker;
+    private AttackRangeRenderer rangeRenderer;
     
     // 기타
     private GameObject placedInactiveUnitGround;
@@ -40,7 +40,7 @@ public class UnitAbilities : MonoBehaviour
         placedInactiveUnitGround = null;
         unitAnim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-
+        rangeRenderer = GetComponentInChildren<AttackRangeRenderer>();
         
 
         if (navAgent == null)
@@ -56,6 +56,7 @@ public class UnitAbilities : MonoBehaviour
         {
             unitMarker.SetActive(false);
         }
+        
     }
     #region Activation Methods (활성화 메서드)
     public void SetActivation(GameObject inactiveUnitGround)
@@ -92,10 +93,7 @@ public class UnitAbilities : MonoBehaviour
     #region Move Methods (이동 관련 메서드)
     public void MoveTo(Vector3 targetPosition)
     {
-        if (rangeMarker != false)
-        {
-            rangeMarker.SetActive(false);
-        }
+        AttackRangeMarkerOff();
 
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
@@ -170,7 +168,7 @@ public class UnitAbilities : MonoBehaviour
     #region Attack Methods (공격 관련 메서드)
     public void AttackToMove(Vector3 targetPosition)
     {
-        rangeMarker.SetActive(false);
+        AttackRangeMarkerOff();
         isAttackToMove = true;
         MoveTo(targetPosition);
     }
@@ -279,12 +277,29 @@ public class UnitAbilities : MonoBehaviour
 
     public void AttackRangeMarkerOn()
     {
-        if (rangeMarker != null)
+        if (rangeRenderer != null)
         {
-            rangeMarker.transform.localScale = new Vector3(attackRange * 2, attackRange * 2, attackRange * 2);
-            rangeMarker.SetActive(true);
+            rangeRenderer.UpdateCircle(attackRange);  // 범위를 업데이트
+            rangeRenderer.Show();  // 범위를 표시
         }
     }
+    
+    public void AttackRangeMarkerOff()
+    {
+        if (rangeRenderer != null)
+        {
+            rangeRenderer.Hide();  // 범위를 숨김
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        // 유닛이 선택된 상태에서만 Gizmos를 그립니다.
+        Gizmos.color = Color.red; // Gizmos의 색상을 설정합니다.
+        
+        // 유닛의 위치에서 공격 범위만큼의 구를 그립니다.
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
     #endregion
 
 }
