@@ -86,6 +86,9 @@ public class Monster : MonoBehaviour
 
     public void Dead()
     {
+        int goldReward = 10;
+        EventManager.Instance.TriggerMonsterDead(goldReward);
+        
         Destroy(gameObject);
     }
 }
