@@ -19,6 +19,15 @@ public class PlayerInformation : MonoBehaviour
         gold = 50;
         level = 1;
         goldForLevelUp = 20;
+        
+        if (EventManager.Instance != null)
+        {
+            EventManager.Instance.OnMonsterDead += GetGold;
+        }
+        else
+        {
+            Debug.LogError("EventManager.Instance is null in Start()");
+        }
     }
 
     void Update()
@@ -26,6 +35,11 @@ public class PlayerInformation : MonoBehaviour
         UpdateGoldText();
         UpdateLevelText();
         UpdateGoldForLevelUpText();
+    }
+    
+    private void GetGold(int goldReward)
+    {
+        gold += goldReward;
     }
 
     public void TryLevelUp()

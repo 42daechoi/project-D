@@ -264,9 +264,9 @@ public class UnitAbilities : MonoBehaviour
         if (monster == null) return;
         ParticleSystem particleInstance = Instantiate(particle, transform.position, transform.rotation);
         StartCoroutine(MoveParticle(particleInstance, monster.transform.position));
-
+    
     }
-
+    
     private IEnumerator MoveParticle(ParticleSystem particleInstance, Vector3 targetPosition)
     {
         float moveSpeed = 20.0f;
@@ -276,7 +276,7 @@ public class UnitAbilities : MonoBehaviour
             particleInstance.transform.position = Vector3.MoveTowards(particleInstance.transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
         }
-
+    
         // 최종 위치에서 멈추기
         particleInstance.transform.position = targetPosition;
         yield return new WaitForSeconds(0.3f);
