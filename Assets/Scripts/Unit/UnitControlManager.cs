@@ -7,18 +7,20 @@ public class UnitControlManager : MonoBehaviour
 {
     public void Initialize()
     {
-        GameManager.Instance.OnMove += Move;
-        GameManager.Instance.OnHold += Hold;
-        GameManager.Instance.OnIsAttack += IsAttack;
-        GameManager.Instance.OnAttack += Attack;
+        EventManager.Instance.OnMove += Move;
+        EventManager.Instance.OnHold += Hold;
+        EventManager.Instance.OnIsAttack += IsAttack;
+        EventManager.Instance.OnAttack += Attack;
     }
 
     private void OnDisable()
     {
-        if (GameManager.Instance != null)
+        if (EventManager.Instance != null)
         {
-            GameManager.Instance.OnMove -= Move;
-            GameManager.Instance.OnHold -= Hold;
+            EventManager.Instance.OnMove -= Move;
+            EventManager.Instance.OnHold -= Hold;
+            EventManager.Instance.OnIsAttack -= IsAttack;
+            EventManager.Instance.OnAttack -= Attack;
         }
     }
 
