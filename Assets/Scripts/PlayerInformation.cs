@@ -5,6 +5,8 @@ using TMPro;
 
 public class PlayerInformation : MonoBehaviour
 {
+    public static PlayerInformation Instance { get; private set; }
+
     public int gold;
     public int level;
     public int goldForLevelUp;
@@ -13,7 +15,17 @@ public class PlayerInformation : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI goldForLevelUpText;
 
-    // Start is called before the first frame update
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Start()
     {
         gold = 50;
