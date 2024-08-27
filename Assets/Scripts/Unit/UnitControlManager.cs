@@ -7,6 +7,11 @@ public class UnitControlManager : MonoBehaviour
 {
     public void Initialize()
     {
+        if (EventManager.Instance == null)
+        {
+            Debug.LogError("EventManager.Instance is null in UnitControlManager.Initialize.");
+            return;
+        }
         EventManager.Instance.OnMove += Move;
         EventManager.Instance.OnHold += Hold;
         EventManager.Instance.OnIsAttack += IsAttack;

@@ -26,8 +26,12 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        unitInstanceList = new List<GameObject> (); ;
-        
+    }
+
+    private void Start()
+    {
+        unitInstanceList = new List<GameObject>(); ;
+
         if (unitControlManager != null)
         {
             unitControlManager.Initialize();

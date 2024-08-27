@@ -244,7 +244,10 @@ public class UnitAbilities : MonoBehaviour
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             monster.TakeDamage(damage);
-            AddParticleToAttack(monster);
+            if (particle != null)
+            {
+                AddParticleToAttack(monster);
+            }
             Debug.Log("몬스터를 공격했습니다.");
             lastAttackTime = Time.time;
 
