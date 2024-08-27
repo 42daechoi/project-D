@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using projectD;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -243,7 +244,6 @@ public class UnitAbilities : MonoBehaviour
         unitAnim.SetBool("isAttacking", true);
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
-            monster.TakeDamage(damage);
             if (particle != null)
             {
                 AddParticleToAttack(monster);
@@ -266,24 +266,40 @@ public class UnitAbilities : MonoBehaviour
     {
         if (monster == null) return;
         ParticleSystem particleInstance = Instantiate(particle, transform.position, transform.rotation);
-        StartCoroutine(MoveParticle(particleInstance, monster.transform.position));
+        StartCoroutine(MoveParticle(particleInstance, monster));
     
     }
     
-    private IEnumerator MoveParticle(ParticleSystem particleInstance, Vector3 targetPosition)
+    private IEnumerator MoveParticle(ParticleSystem particleInstance, Monster targetMonster)
     {
         float moveSpeed = 20.0f;
-        while (Vector3.Distance(particleInstance.transform.position, targetPosition) > 0.1f)
+        while (particleInstance != null && targetMonster != null)
         {
-            // 파티클의 위치를 천천히 이동
-            particleInstance.transform.position = Vector3.MoveTowards(particleInstance.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
+            Vector3 targetPosition = targetMonster.transform.position;
+
+            // 파티클이 몬스터의 현재 위치로 이동하도록 설정
+            if (Vector3.Distance(particleInstance.transform.position, targetPosition) > 0.1f)
+            {
+                particleInstance.transform.position = Vector3.MoveTowards(
+                    particleInstance.transform.position,
+                    targetPosition,
+                    moveSpeed * Time.deltaTime
+                );
+            }
+            else
+            {
+                // 파티클이 도착했을 때 잠시 대기
+                targetMonster.TakeDamage(damage);
+                Destroy(particleInstance.gameObject);
+            }
+
+            yield return null; // 다음 프레임까지 대기
         }
-    
-        // 최종 위치에서 멈추기
-        particleInstance.transform.position = targetPosition;
-        yield return new WaitForSeconds(0.3f);
-        Destroy(particleInstance.gameObject);
+
+        if (particleInstance != null)
+        {
+            Destroy(particleInstance.gameObject);
+        }
     }
     #endregion
 
