@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] selectedUnits;
     
     public UnitControlManager unitControlManager;
-    private bool isAttack = false;
+    public bool isAttack = false;
     
     
 	void Awake()
@@ -73,9 +73,15 @@ public class GameManager : MonoBehaviour
             {
                 EventManager.Instance.TriggerAttack(hit.point);
             }
-            isAttack = false;
+            StartCoroutine(IsAttackDelay()); // DragSelection()의 좌클릭과 동시 실행 방지를 위해 1프레임 대기 후 isAttack = false
         }
-        
+
+    }
+
+    private IEnumerator IsAttackDelay()
+    {
+        yield return null;
+        isAttack = false;
     }
 
     public void AddUnitInstance(GameObject unitInstance)
