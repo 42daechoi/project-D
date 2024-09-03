@@ -14,6 +14,9 @@ public class DragManager : MonoBehaviour
 
     private void Update()
     {
-        dragSelection.UpdateDragSelection();
+        if (!GameManager.Instance.isAttack)
+        {
+            dragSelection.UpdateDragSelection();
+        }
     }
 }
