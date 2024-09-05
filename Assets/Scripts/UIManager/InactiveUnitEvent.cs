@@ -26,6 +26,9 @@ public class InactiveUnitEvent : MonoBehaviour
 		foreach (GameObject unit in selectedUnits)
 		{
             UnitAbilities ua = unit.GetComponent<UnitAbilities>();
+
+            Transform buffParticle = ua.gameObject.transform.Find("Buff");
+            buffParticle.gameObject.SetActive(false);
             foreach (GameObject so in sortedObjects)
 			{
 				VerifyActivation verifyActivation = so.GetComponent<VerifyActivation>();

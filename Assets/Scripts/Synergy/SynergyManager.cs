@@ -10,6 +10,7 @@ public class SynergyManager : MonoBehaviour
 
 	public Dictionary<Synergy, List<UnitAbilities>> synergiesList;
 	public Dictionary<string, int[]> synergyRequirements;
+	public ParticleSystem activeSynergyParticle; 
 
 	private SynergyUI synergyUI;
 
@@ -50,6 +51,7 @@ public class SynergyManager : MonoBehaviour
 				Debug.Log("없는 시너지 정상적용완료");
 			}
 			synergiesList[synergy].Add(uaScript);
+			Debug.Log(synergiesList[synergy].Count);
 		}
 		UpdateSynergy();
 	}
@@ -93,16 +95,32 @@ public class SynergyManager : MonoBehaviour
 			int power = PowerOfSynergy(synergy);
 			if (power > 0)
 			{
-                List<UnitAbilities> unitList = synergiesList[synergy];
+				List<UnitAbilities> unitList = synergiesList[synergy];
 
-                foreach (var unitAbilities in unitList)
-                {
-                    if (synergy.target == "Unit")
-                    {
-                        synergy.ApplySynergyToUnit(unitAbilities, power);
-                    }
-                }
-            }
+				foreach (var unitAbilities in unitList)
+				{
+					if (synergy.target == "Unit")
+					{
+						synergy.ApplySynergyToUnit(unitAbilities, power);
+					}
+					Transform buffParticle = unitAbilities.gameObject.transform.Find("Buff");
+					buffParticle.gameObject.SetActive(true);
+				}
+			}
+			else
+			{
+				List<UnitAbilities> unitList = synergiesList[synergy];
+
+				foreach (var unitAbilities in unitList)
+				{
+					if (synergy.target == "Unit")
+					{
+						synergy.RemoveSynergyToUnit(unitAbilities, power);
+					}
+					Transform buffParticle = unitAbilities.gameObject.transform.Find("Buff");
+					buffParticle.gameObject.SetActive(false);
+				}
+			}
 		}
 		if (synergyUI != null)
 		{
