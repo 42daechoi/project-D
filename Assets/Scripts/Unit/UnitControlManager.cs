@@ -61,7 +61,7 @@ public class UnitControlManager : MonoBehaviour
             UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
             if (unitAbilities != null)
             {
-                unitAbilities.AttackRangeMarkerOn();
+                //unitAbilities.AttackRangeMarkerOn();
             }
         }
     }
