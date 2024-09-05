@@ -174,7 +174,7 @@ MonoBehaviour:
   damage: 40
   attackSpeed: 5
   attackRange: 10
-  particle: {fileID: 0}
+  particle: {fileID: 797784518864179116, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
