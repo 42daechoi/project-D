@@ -242,6 +242,9 @@ public class UnitAbilities : MonoBehaviour
 
     private void Attack(Monster monster)
     {
+        Vector3 directionToLook = monster.transform.position - transform.position;
+        directionToLook.y = 0;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(directionToLook), Time.deltaTime * 10f);
         
         unitAnim.SetBool("isAttacking", true);
         unitAnim.speed = attackSpeed;
