@@ -97,6 +97,7 @@ public class UnitAbilities : MonoBehaviour
     {
         //AttackRangeMarkerOff();
 
+        unitAnim.speed = 1f;
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
             Debug.Log("움직임으로 인한 이동");
@@ -241,7 +242,9 @@ public class UnitAbilities : MonoBehaviour
 
     private void Attack(Monster monster)
     {
+        
         unitAnim.SetBool("isAttacking", true);
+        unitAnim.speed = attackSpeed;
         if (Time.time >= lastAttackTime + 1f / attackSpeed)
         {
             if (particle != null)
