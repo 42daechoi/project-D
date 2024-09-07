@@ -12,6 +12,7 @@ public class EventManager : MonoBehaviour
     public event Action OnIsAttack;
     public event Action<Vector3> OnAttack;
     public event Action<int> OnMonsterDead;
+    public event Action<Monster> OnTargetAttack;
     void Awake()
     {
         if (Instance == null)
@@ -47,5 +48,10 @@ public class EventManager : MonoBehaviour
     public void TriggerMonsterDead(int goldReward)
     {
         OnMonsterDead?.Invoke(goldReward);
+    }
+
+    public void TriggerTargetSet(Monster currentTarget)
+    {
+        OnTargetAttack?.Invoke(currentTarget);
     }
 }
