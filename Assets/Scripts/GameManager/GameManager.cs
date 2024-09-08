@@ -81,6 +81,11 @@ public class GameManager : MonoBehaviour
                         EventManager.Instance.TriggerTargetSet(currentTarget);
                     }
                 }
+                else
+                {
+                    // 몬스터가 아닌 경우 어택땅(Attack-Move) 명령 실행
+                    EventManager.Instance.TriggerAttack(hit.point);
+                }
             }
             StartCoroutine(IsAttackDelay()); // DragSelection()의 좌클릭과 동시 실행 방지를 위해 1프레임 대기 후 isAttack = false
         }
