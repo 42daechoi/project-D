@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     
     public UnitControlManager unitControlManager;
     public bool isAttack = false;
-    
+    public Monster currentTarget;
     
 	void Awake()
 	{
@@ -71,7 +71,21 @@ public class GameManager : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                EventManager.Instance.TriggerAttack(hit.point);
+                // 클릭한 객체가 몬스터인 경우
+                if (hit.collider.CompareTag("Monster"))
+                {
+                    currentTarget = hit.collider.GetComponent<Monster>();  // 몬스터를 타겟으로 설정
+                    if (currentTarget != null)
+                    {
+                        // 타겟이 설정되면 EventManager에 몬스터를 전달
+                        EventManager.Instance.TriggerTargetSet(currentTarget);
+                    }
+                }
+                else
+                {
+                    // 몬스터가 아닌 경우 어택땅(Attack-Move) 명령 실행
+                    EventManager.Instance.TriggerAttack(hit.point);
+                }
             }
             StartCoroutine(IsAttackDelay()); // DragSelection()의 좌클릭과 동시 실행 방지를 위해 1프레임 대기 후 isAttack = false
         }

@@ -16,6 +16,7 @@ public class UnitControlManager : MonoBehaviour
         EventManager.Instance.OnHold += Hold;
         EventManager.Instance.OnIsAttack += IsAttack;
         EventManager.Instance.OnAttack += Attack;
+        EventManager.Instance.OnTargetAttack += TargetAttack;
     }
 
     private void OnDisable()
@@ -26,6 +27,7 @@ public class UnitControlManager : MonoBehaviour
             EventManager.Instance.OnHold -= Hold;
             EventManager.Instance.OnIsAttack -= IsAttack;
             EventManager.Instance.OnAttack -= Attack;
+            EventManager.Instance.OnTargetAttack -= TargetAttack;
         }
     }
 
@@ -74,6 +76,20 @@ public class UnitControlManager : MonoBehaviour
             if (unitAbilities != null)
             {
                 unitAbilities.AttackToMove(targetPosition);
+                Debug.Log("유닛어택!(유닛컨트롤매니저)");
+            }
+        }
+    }
+
+    public void TargetAttack(Monster currentTarget)
+    {
+        Debug.Log("정상적으로 TargetAttack까진 들어왔음");
+        foreach (GameObject unit in GameManager.Instance.GetSelectedUnits())
+        {
+            UnitAbilities unitAbilities = unit.GetComponent<UnitAbilities>();
+            if (unitAbilities != null)
+            {
+                unitAbilities.AttackToMove(currentTarget); //몬스터의 좌표와 유닛의 좌표를 불러와서 계산해서 좌표넣어야함
                 Debug.Log("유닛어택!(유닛컨트롤매니저)");
             }
         }

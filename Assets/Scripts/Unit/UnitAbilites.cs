@@ -169,11 +169,57 @@ public class UnitAbilities : MonoBehaviour
     #endregion
     
     #region Attack Methods (공격 관련 메서드)
+
     public void AttackToMove(Vector3 targetPosition)
     {
         //AttackRangeMarkerOff();
         isAttackToMove = true;
         MoveTo(targetPosition);
+    }
+
+    public void AttackToMove(Monster targetMonster)
+    {
+        isAttackToMove = true;
+        if (moveCoroutine != null)
+        {
+            StopCoroutine(moveCoroutine);
+        }
+
+        moveCoroutine = StartCoroutine(FollowMovingMonster(targetMonster));
+    }
+
+    private IEnumerator FollowMovingMonster(Monster targetMonster)
+    {
+        while (isAttackToMove)
+        {
+            if (!targetMonster.IsDead)
+            {
+                navAgent.SetDestination(targetMonster.transform.position);
+                float distanceToMonster = Vector3.Distance(transform.position, targetMonster.transform.position);
+                if (distanceToMonster <= attackRange)
+                {
+                    navAgent.isStopped = true;
+                    unitAnim.SetBool("isWalking", false);
+                    Attack(targetMonster);
+                }
+                else
+                {
+                    unitAnim.SetBool("isAttacking", false);
+                    navAgent.isStopped = false;
+                    navAgent.SetDestination(targetMonster.transform.position);
+                    unitAnim.SetBool("isWalking", true);
+                    unitAnim.speed = 1f;
+                }    
+            }
+            else
+            {
+                Debug.Log("타겟 몬스터가 사망했습니다. 새로운 타겟을 찾습니다.");
+                StopCoroutine(moveCoroutine);
+                yield return StartCoroutine(CheckForMonstersAndAttack());
+            }
+
+            yield return new WaitForSeconds(0.1f); // 일정 주기로 업데이트
+        }
     }
 
     private IEnumerator CheckForMonstersWhileMoving()
@@ -207,10 +253,8 @@ public class UnitAbilities : MonoBehaviour
             }
             if (!monsterFound)
             {
-                // 몬스터가 없으면 목표 지점으로 계속 이동
                 if (!navAgent.pathPending && navAgent.remainingDistance <= navAgent.stoppingDistance)
                 {
-                    // 목표 지점에 도착하면 HoldPosition 호출
                     HoldPosition();
                     yield break;
                 }
@@ -235,7 +279,8 @@ public class UnitAbilities : MonoBehaviour
                     }
                 }
             }
-            yield return new WaitForSeconds(1f / attackSpeed); // 공격 속도에 맞춰 주기적으로 공격
+
+            yield return new WaitForSeconds(1f / attackSpeed);
         }
     }
     

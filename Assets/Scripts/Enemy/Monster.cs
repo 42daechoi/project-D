@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour
     public float MaxHp { get => maxHp; set => maxHp = value; }
     public float Def { get => def; set => def = value; }
     public float Speed { get => speed; set => speed = value; }
+    public bool IsDead { get; private set; } = false;
 
     public Transform[] waypoints;
 
@@ -86,6 +87,7 @@ public class Monster : MonoBehaviour
 
     public void Dead()
     {
+        IsDead = true;
         int goldReward = 10;
         EventManager.Instance.TriggerMonsterDead(goldReward);
         
