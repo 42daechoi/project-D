@@ -36,6 +36,7 @@ public class UnitAbilities : MonoBehaviour
     private Coroutine moveCoroutine;
     private Coroutine attackCoroutine;
     private Animator unitAnim;
+    public List<ParticleSystem> activeParticles = new List<ParticleSystem>();
     
     private void Awake()
     {
@@ -316,10 +317,12 @@ public class UnitAbilities : MonoBehaviour
         StartCoroutine(MoveParticle(particleInstance, monster));
     
     }
-    
+
     private IEnumerator MoveParticle(ParticleSystem particleInstance, Monster targetMonster)
     {
         float moveSpeed = 20.0f;
+        activeParticles.Add(particleInstance);
+
         while (particleInstance != null && targetMonster != null)
         {
             Vector3 targetPosition = targetMonster.transform.position;
@@ -338,6 +341,7 @@ public class UnitAbilities : MonoBehaviour
                 // 파티클이 도착했을 때 잠시 대기
                 targetMonster.TakeDamage(damage);
                 Destroy(particleInstance.gameObject);
+                activeParticles.Remove(particleInstance);
             }
 
             yield return null; // 다음 프레임까지 대기
