@@ -27,8 +27,7 @@ public class InactiveUnitEvent : MonoBehaviour
 		{
             UnitAbilities ua = unit.GetComponent<UnitAbilities>();
 
-            Transform buffParticle = ua.gameObject.transform.Find("Buff");
-            buffParticle.gameObject.SetActive(false);
+			ParticleControl(ua);
             foreach (GameObject so in sortedObjects)
 			{
 				VerifyActivation verifyActivation = so.GetComponent<VerifyActivation>();
@@ -45,4 +44,20 @@ public class InactiveUnitEvent : MonoBehaviour
 			}
 		}
 	}
+    private void ParticleControl(UnitAbilities ua)
+    {
+		Transform buffParticle = ua.gameObject.transform.Find("Buff");
+		buffParticle.gameObject.SetActive(false);
+        if (ua.activeParticles != null && ua.activeParticles.Count > 0)
+        {
+            foreach (var particle in ua.activeParticles)
+            {
+                if (particle != null) // 각 파티클이 null이 아닌지 확인
+                {
+                    Destroy(particle.gameObject);
+                }
+            }
+            ua.activeParticles.Clear(); // 리스트 비우기
+        }
+    }
 }
