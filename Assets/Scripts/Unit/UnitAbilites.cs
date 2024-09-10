@@ -77,8 +77,12 @@ public class UnitAbilities : MonoBehaviour
         {
             VerifyActivation iugVa = inactiveUnitGround.GetComponent<VerifyActivation>();
             iugVa.SetActivation(true);
+            StopAllCoroutines();
+            isAttackToMove = false;
+            unitAnim.SetBool("isAttacking", false);
+            unitAnim.SetBool("isWalking", false);
+            unitAnim.speed = 1f;
             navAgent.enabled = false;
-            // 새로운 유닛의 NavMeshAgent 활성화
             GameManager.Instance.DeselectUnit(gameObject);
         }
 
@@ -94,8 +98,6 @@ public class UnitAbilities : MonoBehaviour
     #region Move Methods (이동 관련 메서드)
     public void MoveTo(Vector3 targetPosition)
     {
-        //AttackRangeMarkerOff();
-
         unitAnim.speed = 1f;
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
