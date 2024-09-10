@@ -78,7 +78,6 @@ public class UnitAbilities : MonoBehaviour
             VerifyActivation iugVa = inactiveUnitGround.GetComponent<VerifyActivation>();
             iugVa.SetActivation(true);
             navAgent.enabled = false;
-            Debug.Log("대기열에있지만 활성화중");
             // 새로운 유닛의 NavMeshAgent 활성화
             GameManager.Instance.DeselectUnit(gameObject);
         }
@@ -100,7 +99,6 @@ public class UnitAbilities : MonoBehaviour
         unitAnim.speed = 1f;
         if (navAgent != null && navAgent.enabled && isAttackToMove == false)
         {
-            Debug.Log("움직임으로 인한 이동");
             unitAnim.SetBool("isAttacking", false);
             unitAnim.SetBool("isWalking", true);
             navAgent.isStopped = false;
@@ -114,7 +112,6 @@ public class UnitAbilities : MonoBehaviour
         
         if (navAgent != null && navAgent.enabled && isAttackToMove)
         {
-            Debug.Log("공격으로 인한 이동");
             navAgent.isStopped = false;
             unitAnim.SetBool("isWalking", true);
             navAgent.SetDestination(targetPosition);
@@ -136,15 +133,14 @@ public class UnitAbilities : MonoBehaviour
                 // 도착 시 애니메이션 정지
                 unitAnim.SetBool("isWalking", false);
                 navAgent.isStopped = true;
-                yield break; // 코루틴 종료
+                yield break;
             }
-            yield return null; // 다음 프레임까지 대기
+            yield return null;
         }
     }
 
     public void HoldPosition()
     {
-        //unitAnim.SetTrigger("Stand");
         if (navAgent != null && navAgent.enabled)
         {
             navAgent.isStopped = true;
@@ -162,7 +158,6 @@ public class UnitAbilities : MonoBehaviour
     {
         if (isAttackToMove)
         {
-            Debug.Log("어택투무브 false로 교체");
             isAttackToMove = false;
         }
     }
@@ -299,7 +294,6 @@ public class UnitAbilities : MonoBehaviour
             {
                 AddParticleToAttack(monster);
             }
-            Debug.Log("몬스터를 공격했습니다.");
             lastAttackTime = Time.time;
 
             foreach (ScriptableObject so in synergiesList)
