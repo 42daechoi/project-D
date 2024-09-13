@@ -265,6 +265,8 @@ public class UnitAbilities : MonoBehaviour
     {
         while (isAttackToMove)
         {
+            bool foundTarget = false;
+            
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
             foreach (var hitCollider in hitColliders)
             {
@@ -274,8 +276,15 @@ public class UnitAbilities : MonoBehaviour
                     if (monster != null)
                     {
                         Attack(monster);
+                        foundTarget = true;
+                        break;
                     }
                 }
+            }
+            if (!foundTarget)
+            {
+                // 공격 애니메이션을 중지
+                unitAnim.SetBool("isAttacking", false);
             }
 
             yield return new WaitForSeconds(1f / attackSpeed);
