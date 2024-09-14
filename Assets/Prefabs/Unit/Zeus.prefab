@@ -404,8 +404,9 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: a086aba7f3af7e848b3fe5cdf4e23baf, type: 2}
-  unitId: 6
+  unitName: Zeus
   unitMarker: {fileID: 4171558939808033986}
+  activeParticles: []
 --- !u!114 &7316409406846998789
 MonoBehaviour:
   m_ObjectHideFlags: 0

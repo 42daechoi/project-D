@@ -181,8 +181,9 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 5
+  unitName: Posejdon
   unitMarker: {fileID: 8529574225229429632}
+  activeParticles: []
 --- !u!114 &2666719800470245205
 MonoBehaviour:
   m_ObjectHideFlags: 0

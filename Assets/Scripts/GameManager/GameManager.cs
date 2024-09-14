@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,8 +16,8 @@ public class GameManager : MonoBehaviour
     public UnitControlManager unitControlManager;
     public bool isAttack = false;
     public Monster currentTarget;
-    
-	void Awake()
+
+    void Awake()
 	{
         if (Instance == null)
         {
@@ -89,7 +90,14 @@ public class GameManager : MonoBehaviour
             }
             StartCoroutine(IsAttackDelay()); // DragSelection()의 좌클릭과 동시 실행 방지를 위해 1프레임 대기 후 isAttack = false
         }
-
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (selectedUnits.Length == 1)
+            {
+                UnitAbilities ua = selectedUnits[0].GetComponent<UnitAbilities>();
+                UnitInfo.Instance.UpdateUnitInfo(ua);
+            }
+        }
     }
 
     private IEnumerator IsAttackDelay()

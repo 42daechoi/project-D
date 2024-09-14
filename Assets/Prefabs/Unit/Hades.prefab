@@ -167,8 +167,10 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 3
+  - {fileID: 11400000, guid: af1450b43998cd340925054e887a9de5, type: 2}
+  unitName: Hades
   unitMarker: {fileID: 4764598853948671610}
+  activeParticles: []
 --- !u!114 &2241679054068771163
 MonoBehaviour:
   m_ObjectHideFlags: 0

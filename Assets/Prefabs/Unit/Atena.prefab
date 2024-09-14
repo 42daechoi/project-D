@@ -234,8 +234,9 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 2
+  unitName: Atena
   unitMarker: {fileID: 3769551713787102073}
+  activeParticles: []
 --- !u!114 &2086827539891882607
 MonoBehaviour:
   m_ObjectHideFlags: 0
