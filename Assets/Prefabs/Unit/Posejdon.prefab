@@ -184,7 +184,7 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 5
+  unitName: Posejdon
   unitMarker: {fileID: 8529574225229429632}
   activeParticles: []
   audioSource: {fileID: 4605749215045598561}

@@ -24,7 +24,7 @@ public class UnitAbilities : MonoBehaviour
     // 유닛 시너지목록
     [Header("UnitSynergies")]
     public List<ScriptableObject> synergiesList;
-    public int unitId;
+    public string unitName;
     
     // 유닛 선택 마커
     public GameObject unitMarker;

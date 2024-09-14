@@ -237,7 +237,7 @@ MonoBehaviour:
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 2
+  unitName: Atena
   unitMarker: {fileID: 3769551713787102073}
   activeParticles: []
   audioSource: {fileID: 3242526223338273972}

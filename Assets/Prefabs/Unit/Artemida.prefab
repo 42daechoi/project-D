@@ -312,11 +312,12 @@ MonoBehaviour:
   damage: 40
   attackSpeed: 5
   attackRange: 10
-  particle: {fileID: 0}
+  particle: {fileID: 5190627873338535603, guid: e106a6f8ebc7d04409607367c9388b0a, type: 3}
   probability: 0.1
   synergiesList:
   - {fileID: 11400000, guid: 5e1e6e27932c5a84987bb180288f2f74, type: 2}
-  unitId: 1
+  - {fileID: 11400000, guid: 746f12772e18b634385482f89df23d9c, type: 2}
+  unitName: Artemida
   unitMarker: {fileID: 8051764692852421921}
   activeParticles: []
   audioSource: {fileID: -969529034642372431}

@@ -151,10 +151,10 @@ public class SynergyManager : MonoBehaviour
 
 	public int GetSynergyCountWithoutDuplicate(List<UnitAbilities> unitsWithSynergy)
 	{
-		HashSet<int> unitIdHashSet = new HashSet<int>();
+		HashSet<string> unitIdHashSet = new HashSet<string>();
 		foreach(UnitAbilities ua in unitsWithSynergy)
 		{
-			unitIdHashSet.Add(ua.unitId);
+			unitIdHashSet.Add(ua.unitName);
 		}
 		return unitIdHashSet.Count;
 	}
