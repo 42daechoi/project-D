@@ -10,7 +10,6 @@ public class SynergyManager : MonoBehaviour
 
 	public Dictionary<Synergy, List<UnitAbilities>> synergiesList;
 	public Dictionary<string, int[]> synergyRequirements;
-	public ParticleSystem activeSynergyParticle; 
 
 	private SynergyUI synergyUI;
 
@@ -106,7 +105,8 @@ public class SynergyManager : MonoBehaviour
 					Transform buffParticle = unitAbilities.gameObject.transform.Find("Buff");
 					buffParticle.gameObject.SetActive(true);
 				}
-			}
+				break;
+            }
 			else
 			{
 				List<UnitAbilities> unitList = synergiesList[synergy];
