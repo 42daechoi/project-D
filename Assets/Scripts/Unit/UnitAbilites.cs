@@ -37,6 +37,8 @@ public class UnitAbilities : MonoBehaviour
     private Coroutine attackCoroutine;
     private Animator unitAnim;
     public List<ParticleSystem> activeParticles = new List<ParticleSystem>();
+    public AudioSource audioSource; // 오디오 소스
+    public AudioClip attackSound;   // 공격 사운드 (파티클 효과음)
     
     private void Awake()
     {
@@ -168,6 +170,14 @@ public class UnitAbilities : MonoBehaviour
     
     #region Attack Methods (공격 관련 메서드)
 
+    private void PlayAttackSound()
+    {
+        if (audioSource != null && attackSound != null)
+        {
+            audioSource.PlayOneShot(attackSound);
+        }
+    }
+    
     public void AttackToMove(Vector3 targetPosition)
     {
         //AttackRangeMarkerOff();
@@ -305,6 +315,7 @@ public class UnitAbilities : MonoBehaviour
             if (particle != null)
             {
                 AddParticleToAttack(monster);
+                PlayAttackSound();
             }
             lastAttackTime = Time.time;
 
