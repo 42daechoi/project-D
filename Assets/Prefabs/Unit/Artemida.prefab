@@ -319,6 +319,8 @@ MonoBehaviour:
   unitId: 1
   unitMarker: {fileID: 8051764692852421921}
   activeParticles: []
+  audioSource: {fileID: -969529034642372431}
+  attackSound: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
 --- !u!114 &4883206600654751479
 MonoBehaviour:
   m_ObjectHideFlags: 0
