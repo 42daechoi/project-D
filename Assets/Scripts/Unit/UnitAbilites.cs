@@ -322,7 +322,8 @@ public class UnitAbilities : MonoBehaviour
             foreach (ScriptableObject so in synergiesList)
             {
                 Synergy synergy = (so as Synergy);
-                if (synergy.target == "Monster")
+                int synergyPower = SynergyManager.Instance.PowerOfSynergy(synergy);
+                if (synergy.target == "Monster" && synergyPower > 0)
                 {
                     synergy.ApplySynergyToMonster(monster, this);
                 }
