@@ -130,6 +130,11 @@ public class SynergyManager : MonoBehaviour
 
 	public int PowerOfSynergy(Synergy synergy)
 	{
+		if (!synergiesList.ContainsKey(synergy))
+		{
+			return 0;
+		}
+		
 		List<UnitAbilities> unitList = synergiesList[synergy];
 		int synergyCount = GetSynergyCountWithoutDuplicate(unitList);
         int power = 0;
