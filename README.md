@@ -2,10 +2,6 @@
 스타크래프트의 유즈맵 메이플 운빨 디펜스의 플레이 감성과 전략적 팀 전투의 시너지 시스템을 활용한 2인 개발 디펜스 게임
 <br><br><br><br>
 
-## 플레이 영상
-[Youtube Link](https://youtu.be/lUbJoZvftaw)
-<br><br><br><br>
-
 ## 팀 구성
 팀장 : 최대영
 구성원 : 이성훈
@@ -28,6 +24,10 @@
 - 추상 클래스와 ScriptableObject를 활용하여 시너지 시스템
 - 시너지 활성화 및 공격 파티클 추가
 - 유닛 상세정보 확인 기능
+<br><br><br><br>
+
+## 플레이 영상
+[Youtube Link](https://youtu.be/lUbJoZvftaw)
 <br><br><br><br>
 
 ## 개발 과정
